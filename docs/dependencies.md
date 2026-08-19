@@ -3,8 +3,9 @@
 ## Current repository
 
 There is no build dependency yet. The repository is intentionally
-documentation-first until the carrier, controller, control protocol, and local
-audio implementation are selected.
+documentation-first while the leading Certus-NX FPGA candidate, USB
+controller, A203 control protocol, and carrier details pass their selection
+gates.
 
 Required now:
 
@@ -47,10 +48,15 @@ are missing.
 
 ## Anticipated implementation dependencies
 
-The build system and toolchain will be selected after the controller is chosen.
-Likely categories, not current commitments, are:
+The first implementation dependency will be an FPGA toolchain after the
+bank-aware comparison in `../hardware/fpga-selection.md`. The leading candidate
+uses Lattice Radiant, with Vivado and Quartus Prime Lite retained for the
+Spartan-7 and Cyclone 10 LP trial builds. Do not make a vendor toolchain a
+required dependency until the trial compile and exact device are recorded.
 
-- controller/DSP/FPGA vendor toolchain;
+Other likely categories, not current commitments, are:
+
+- USB-controller firmware toolchain;
 - CMake and a modern C/C++ compiler for hardware-independent protocol/test code;
 - packet capture and analysis tools for AES67 interoperability;
 - hardware-in-the-loop scripts using only documented, redistributable APIs.
@@ -81,7 +87,7 @@ When implementation begins, record exact versions for:
 - target device (01X or i88X), serial number/revision, original MLN2 revision,
   connector/interposer revision, and target-specific lane/control profile;
 - carrier schematic/PCB revision;
-- controller toolchain and SDK;
+- FPGA and USB-controller toolchains and SDKs;
 - network switch, PTP configuration, and reference endpoint;
 - build generator/compiler and test instruments;
 - optional USB bridge firmware, driver, and ASIO SDK (if used).

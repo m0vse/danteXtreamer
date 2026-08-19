@@ -100,9 +100,10 @@ to A203. The code and executable are therefore not copied.
 - Control-protocol code waits for an A203-specific specification or written
   vendor confirmation that a reviewed example applies.
 - Initial bring-up uses 48 kHz/24-bit and a vendor-confirmed lane mode.
-- The Yamaha-to-A203 audio/control adapter is technology-neutral until each
-  target's lane map, clock role, host startup behavior, and buffering
-  requirements are measured.
+- The pre-schematic Yamaha-to-A203 audio/control adapter is now an FPGA. The
+  ordering code remains conditional until each target's lane map, clock role,
+  host startup behavior, buffering, I/O-bank, and power requirements are
+  confirmed. See `../hardware/fpga-selection.md`.
 - USB compatibility hardware is included in the carrier plan, while its
   firmware is deferred and isolated from core bring-up.
 - Vendor manuals, archives, binaries, and extracted examples remain untracked.

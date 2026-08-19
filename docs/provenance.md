@@ -46,7 +46,7 @@ Reviewed areas and disposition:
 | `AudioXtreamer/AudioXtreamer/AppLog.*` | Persistent Windows logging pattern | Not copied. A core Windows process is not currently required. Reconsider for a future desktop control utility with MIT attribution. |
 | `AudioXtreamer/TortugASIO/` and COM registration | Existing ASIO host-facing pattern | Not copied. Core A203 audio does not stream through Windows, and ASIO SDK headers are separately licensed. |
 | `AudioXtreamer/FX2LP`, `WinUSB`, `UsbDev`, `ZTEXDev` | Behavioral reference for optional USB compatibility | Not copied. Hardware-specific, incomplete without FX2 firmware/descriptors, and associated with unresolved transport glitches. |
-| `VHDL/`, `FPGA/`, `Pcb/` | Legacy USB/01X implementation and evidence about one Yamaha integration | Not copied. Useful as a reference when characterising the 01X, but it neither proves i88X compatibility nor establishes a requirement for FPGA or Xilinx ISE in the A203 design. |
+| `VHDL/`, `FPGA/`, `Pcb/` | Legacy USB/01X implementation and evidence about one Yamaha integration | Not copied. Useful as a reference when characterising the 01X, but it neither proves i88X compatibility nor requires reuse of Spartan-6, Xilinx ISE, or the legacy RTL. The new project's FPGA decision is recorded separately. |
 | `AudioXtreamer/Installer/` | x86/x64 WiX registration conventions | Not copied. No Windows deliverable exists yet. |
 | `.gitignore`, README, handover document | Build hygiene and documentation patterns | Consulted as references; new repository text was written specifically for A203 and no file was copied. |
 | `libs/simpleini` | Settings library submodule | Not copied. No configuration-file requirement exists yet; retain its own upstream provenance if chosen later. |
@@ -55,6 +55,22 @@ No AudioXtreamer source component was copied or adapted in this preparation
 pass. This is deliberate: the only immediately reusable material was either
 Windows-specific, USB/FPGA-specific, or unnecessary before the A203 interface is
 confirmed.
+
+For the 2026-08-19 hardware-baseline pass, the following AudioXtreamer files
+were read as engineering evidence without copying source:
+
+- `docs/USB_AUDIO_STABILITY_HANDOVER.md` for the documented 01X channel counts,
+  MLN2 connector rows, clock ownership, and unresolved USB limitations;
+- `VHDL/usb2iis/top_audioxtreamer.vhd` and `pcmio.vhd` for the physical 12-line
+  interface and 24-bit left-justified capture/serialisation pattern;
+- `FPGA/ZTEX201/USB32chAudio/ZTEX201.ucf` for the actual 3.3 V I/O and clock
+  constraints of the experimental Spartan-6 implementation;
+- `Pcb/AudioXtreamer_Ymh01x.sch` for the replacement connector's audio, MIDI,
+  clock, +5 V, and +3.3 V usage.
+
+The resulting `hardware/hardware-baseline.md` and `hardware/fpga-selection.md`
+are new project documents. They describe requirements and alternatives; they do
+not incorporate third-party HDL, schematic artwork, footprints, or constraints.
 
 ## New repository content
 

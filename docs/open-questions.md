@@ -5,14 +5,15 @@ implementation is committed.
 
 ## Yamaha MLN2 replacement boundary
 
-1. **Blocking:** Obtain or derive an authorised MLN2 connector pinout for both
-   01X and i88X, including direction, voltage, reset state, and unused pins.
-   Local service manuals for both targets are available as ignored references;
-   their relevant connector information still needs to be extracted and
-   cross-checked against hardware.
-2. **Blocking:** Are the two devices electrically and mechanically identical at
-   the card boundary? Document every difference rather than assuming a shared
-   interface from the MLN2 name.
+1. **Blocking:** Convert the reviewed service-manual `mLAN2-I/F` connector table
+   and product schematics into a pin matrix for 01X and i88X, including
+   direction, voltage, reset state, clock domain, and unused pins, then verify
+   it against physical hardware. The manuals establish a common 100-pin MLN2
+   circuit family but do not establish every electrical characteristic.
+2. **Blocking:** The 01X connects DM directly to MLN2 CN6 and the i88X connects
+   through DMSUB; confirm whether connector height, mechanical datum, mounting,
+   and every used signal are identical enough for one PCB. Document every
+   population or firmware difference.
 3. **Blocking:** Measure the card outline, connector datum, mounting holes,
    keep-outs, chassis/shield contacts, cable clearance, and thermal envelope in
    both devices.
@@ -28,6 +29,13 @@ implementation is committed.
    or are separate carrier variants required?
 9. Which target should be used for the first installed prototype, and what
    evidence is required before repeating the test on the other?
+10. Confirm the service-manual evidence that the host supplies +5 V on the MLN2
+    boundary, then measure available current and inrush allowance in both
+    products with the original card installed.
+11. **Blocking:** Resolve the clock naming discrepancy: the Yamaha block diagram
+    labels BCK as 64 x Fs and MCK as 256 x Fs, while the legacy replacement
+    labels its selected FPGA working clock `BCKI` and constrains/uses it as
+    256 x Fs. Measure WCK/BCK/MCK contacts and direction in both products.
 
 ## Carrier and electrical
 
@@ -73,6 +81,11 @@ implementation is committed.
 6. Does 32x32 use four TDM8 lanes, two TDM16 lanes, or another mapping?
 7. What is the module's latency from serial audio to network and back for each
    supported packet time/mode?
+8. Does TDM8 accept a 256 x Fs external SCLK derived from the measured Yamaha
+   clock contact, and may 24 channels use three lanes or must four 8-slot lanes
+   be active with the final eight slots zero-filled?
+9. When locked to external SCLK/LRCLK, which clock edge/domain samples SDIN and
+   launches SDOUT, what phase offset is bounded, and what indicates valid lock?
 
 ## Control protocol
 
@@ -89,9 +102,10 @@ implementation is committed.
 
 ## AudioXtreamer USB bridge
 
-1. **Blocking for schematic freeze:** What bridge device or module provides
-   USB 2.0 High-Speed device operation, the required A203 serial-audio lanes,
-   sufficient RAM/buffering, and a maintainable toolchain?
+1. **Blocking for schematic freeze:** Choose an independently powered USB 2.0
+   High-Speed controller that can expose a 16-bit synchronous FIFO plus the
+   legacy register/control behavior to the shared FPGA. Compare FX2LP for
+   behavioral similarity against a maintainable modern HS-USB MCU.
 2. **Blocking for schematic freeze:** Which A203 lanes/clocks must be routed to
    the bridge, and what electrical isolation guarantees an unpowered,
    unprogrammed, or unpopulated bridge cannot load them?

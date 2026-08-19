@@ -27,10 +27,12 @@ mechanically, or functionally compatible.
 
 This repository currently contains the reviewed design baseline, an isolated
 source layout, and a hardware-first validation plan for replacing MLN2 in both
-target products. It deliberately contains no A203 or Yamaha-host control
-implementation yet: the supplied A203 manual does not define its configuration
-protocol, and complete MLN2 connector/startup specifications for the 01X and
-i88X have not yet been established.
+target products. A pre-schematic carrier architecture and FPGA shortlist now
+exist; the leading FPGA candidate is a Lattice Certus-NX LFD2NX-25 in caBGA256,
+but it remains conditional on bank-aware pin planning, a trial implementation,
+power budgeting, and sourcing. The repository deliberately contains no A203 or
+Yamaha-host control implementation yet because the supplied A203 manual does
+not define its configuration protocol.
 
 The proposed first installed milestone is a measured, bidirectional 48 kHz/
 24-bit route through a danteXtreamer prototype fitted in one target Yamaha unit,
@@ -66,6 +68,10 @@ carrier redesign to add it.
   firmware-enablement gates.
 - `hardware/` - MLN2-form-factor replacement carrier, clocking, and
   signal-integrity design sources.
+- `hardware/hardware-baseline.md` - proposed board blocks, Yamaha/A203 audio
+  adaptation, clocks, power, Ethernet, USB, safe states, and schematic split.
+- `hardware/fpga-selection.md` - I/O/resource requirements, current FPGA
+  shortlist, leading candidate, and selection gates.
 - `hardware/usb-bridge-requirements.md` - board-level requirements for including
   USB compatibility before its firmware is implemented.
 - `src/control/` - future A203 control-plane code after protocol confirmation.
@@ -103,7 +109,8 @@ inspection output belongs under ignored `tmp/`.
    not couple core A203 integration to legacy FX2/Spartan-6 code.
 
 See `docs/dependencies.md` before adding a build system. No compiler or SDK is
-currently required because no implementation target has been selected.
+currently required because the FPGA family is still a conditional selection
+and no RTL trial project has been added yet.
 
 To confirm that the ignored local inputs match the reviewed versions:
 

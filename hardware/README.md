@@ -8,10 +8,15 @@ Do not place vendor PDFs, reference archives, exported binaries, or confidential
 reference designs here. Keep them under ignored `vendor/` and cite their title,
 revision, and hash in `docs/provenance.md`.
 
-No carrier design should be started from the A203 pin table or an assumed common
-MLN2 pinout alone. Resolve the blocking Yamaha mechanics/connector/power/startup
-questions and the A203 power, reset, PHY, clock-input, and unused-pin questions
-first.
+The reviewed pre-schematic architecture and FPGA requirements are in
+`hardware-baseline.md` and `fpga-selection.md`. They are evidence-backed design
+hypotheses, not a frozen schematic or a claim that unresolved A203 behavior is
+known.
+
+No carrier schematic should be frozen from the A203 pin table or an assumed
+common MLN2 pinout alone. Resolve the blocking Yamaha mechanics/power/startup
+questions and the A203 power, reset, PHY, clock-input, lane-map, and unused-pin
+questions first.
 
 The carrier is expected to include USB High-Speed bridge provisions even if
 firmware is deferred. See `usb-bridge-requirements.md`.

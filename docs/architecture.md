@@ -57,10 +57,19 @@ A203's serial-audio contract:
 - I2S or TDM4/8/16, with LRCLK edge polarity configurable somewhere outside the
   supplied manual.
 
-The implementation technology is intentionally open. An audio DSP, MCU with
-sufficient serial-audio peripherals, or FPGA may be appropriate after lane
-mapping and clock-role measurements. The legacy Xilinx ISE/Spartan-6 design is
-not inherited by default.
+The pre-schematic baseline now uses an FPGA. It captures and serialises the
+Yamaha 24-bit left-justified stereo lines, maps channels into A203 TDM slots,
+crosses bounded phase/reset differences through elastic FIFOs, monitors clock
+lock and FIFO health, and owns safe-state output enables. The legacy Xilinx
+ISE/Spartan-6 implementation is evidence about the Yamaha interface, not RTL to
+inherit as a proven transport.
+
+The leading mapping hypothesis is twelve Yamaha stereo lines into three TDM8
+lanes, with a fourth zero/unrouted lane if the A203 requires a 32-channel group.
+This makes the TDM bit clock equal to a 256 x Fs Yamaha clock at 48 and 96 kHz.
+It remains conditional on measuring which Yamaha BCK/MCK connector contact
+actually carries that clock and on an A203-specific lane map/external-clock
+confirmation. See `../hardware/hardware-baseline.md`.
 
 ### Control adapter
 
@@ -93,23 +102,28 @@ its compatibility firmware may follow later. The board must reserve:
 - clock/audio/reset test points and enough non-volatile storage/RAM for the
   eventual implementation.
 
-Exact silicon is not selected. A high-speed USB MCU, FPGA plus USB controller,
-or similar solution remains valid if it meets the measured lane and clocking
-needs. See `../hardware/usb-bridge-requirements.md`.
+The FPGA is shared with the core audio adapter. The board should reserve an
+independently powered USB High-Speed controller and an FPGA bus at least as
+capable as the legacy 16-bit, 48 MHz FX2 FIFO plus register interface. The USB
+controller ordering code remains open. Direct ULPI-to-FPGA USB is not the
+baseline because it adds a USB device core and avoidable verification/licensing
+risk. See `../hardware/usb-bridge-requirements.md`.
 
 ## Clocking model
 
 The manual says the A203 has an onboard VCXO, always outputs MCLK, and can lock
 its generated audio clocks to an external clock. It also discusses LRCLK_IN and
 SCLK_IN, but the pin table names pin 68 `EXTERNL_CLK` and does not explicitly map
-that pin to `SCLK_IN`. Until confirmed, the following are design constraints:
+that pin to `SCLK_IN`.
 
-- treat the A203 as serial-audio clock master for initial bring-up;
-- do not drive any clock input until its pin, voltage, and mode are confirmed;
-- capture MCLK, SCLK, LRCLK, and MUTE together to establish actual phase and
-  lock behavior;
-- put sample-rate conversion or drift management at an explicit boundary if a
-  later asynchronous source, including USB, cannot share the A203 clock.
+Bench bring-up must leave the uncertain clock input undriven and first observe
+the A203 as clock master. The proposed installed 48 kHz milestone then uses the
+Yamaha host as reference and asks the A203 to lock to conditioned Yamaha WCLK
+and the measured 256 x Fs source only after Audiocom confirms the pin/mode. The
+carrier also preserves a separately gated reverse WCLK route for a later
+network-master mode. Capture MCLK, SCLK, LRCLK, MUTE, FIFO occupancy, and
+lock-loss together; never enable both clock owners. No asynchronous sample-rate
+converter is in the baseline.
 
 ## USB compatibility bridge
 

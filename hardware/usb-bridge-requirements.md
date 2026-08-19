@@ -8,10 +8,8 @@ bridge section must be safe when unpopulated or held in reset.
 
 - USB 2.0 High-Speed device operation (480 Mbit/s signalling); USB Full Speed is
   not a suitable design ceiling for multichannel 24-bit audio.
-- Access to enough A203 SDIN/SDOUT lanes and MCLK/SCLK/LRCLK signals for the
-  eventual supported channel count.
-- Access, through explicit ownership/isolation logic, to the Yamaha MLN2-side
-  audio lanes required by the 01X and i88X target profiles.
+- Access to the shared audio-adapter FPGA rather than a second, competing set
+  of A203 or Yamaha audio drivers.
 - Deterministic DMA/data movement and enough RAM for bounded elastic buffering
   in both directions.
 - A clocking architecture that can slave audio-side logic to the A203 or safely
@@ -47,15 +45,32 @@ do not establish that the A203 exposes 32x32 in one particular lane mode.
 - Add test points for MCLK, SCLK, LRCLK, selected SDIN/SDOUT lanes, bridge reset,
   and power rails with a documented probing strategy.
 
-## Selection still open
+## Controller interface baseline
 
-Do not select an MCU/FPGA solely because it resembles the legacy
-FX2/Spartan-6 design. Compare at least:
+Reserve roughly 40 FPGA I/O for an interface at least as capable as the legacy
+AudioXtreamer arrangement: a 16-bit synchronous data FIFO at 48 MHz, FIFO
+address/read/write/output-enable/packet/flag controls, an 8-bit register bus,
+and interrupt/busy/frame/reset indications. The buses may later be multiplexed
+to reduce pins, but the first pin plan must prove the full compatibility case.
 
-- native USB High-Speed device MCU with sufficient serial-audio/DMA capacity;
-- FPGA plus external or integrated USB High-Speed device controller;
-- modular bridge implementation that can be replaced independently of the A203
-  carrier.
+The USB controller section must be independently powered/reset and connect to
+the core FPGA through explicit output enables. It must not connect directly as
+a second driver of Yamaha or A203 clocks/data.
 
-Selection depends on the confirmed A203 lane map, clock role, legacy USB
-descriptor/control contract, development-tool longevity, and licence terms.
+## Controller selection still open
+
+The core audio-adapter FPGA is selected separately in `fpga-selection.md`.
+Compare at least these USB-controller approaches:
+
+- FX2LP or a compatible FIFO controller for the closest electrical/behavioral
+  match to the incomplete legacy contract;
+- a modern native USB High-Speed device MCU that can emulate the FIFO/register
+  contract and has a maintainable firmware/debug flow;
+- a replaceable controller mezzanine if lifecycle or protocol recovery makes a
+  fixed on-board choice too risky.
+
+Direct ULPI-to-FPGA USB is outside the baseline unless a maintainable,
+appropriately licensed USB device core and verification plan are identified.
+
+Selection depends on the recovered legacy USB descriptor/control contract,
+development-tool longevity, firmware licensing, power, and component sourcing.
