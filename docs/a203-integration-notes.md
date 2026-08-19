@@ -93,13 +93,16 @@ to A203. The code and executable are therefore not copied.
 
 ## Project decisions
 
-- Core media is A203 serial audio to XDante/AES67; no ASIO or Windows media
-  transport is assumed.
+- The product is an MLN2 replacement for Yamaha 01X and i88X devices. This is a
+  project requirement, not a capability stated in the A203 manual.
+- Core media flows between the Yamaha MLN2-side audio interface and A203
+  XDante/AES67; no ASIO or Windows media transport is assumed.
 - Control-protocol code waits for an A203-specific specification or written
   vendor confirmation that a reviewed example applies.
 - Initial bring-up uses 48 kHz/24-bit and a vendor-confirmed lane mode.
-- The local audio adapter is technology-neutral until lane count, clock role,
-  and buffering requirements are measured.
+- The Yamaha-to-A203 audio/control adapter is technology-neutral until each
+  target's lane map, clock role, host startup behavior, and buffering
+  requirements are measured.
 - USB compatibility hardware is included in the carrier plan, while its
   firmware is deferred and isolated from core bring-up.
 - Vendor manuals, archives, binaries, and extracted examples remain untracked.

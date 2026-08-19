@@ -2,19 +2,27 @@
 
 ## Scope and system boundary
 
-The A203 terminates the XDante/AES67 network-audio function. The core product is
-therefore a hardware integration around three boundaries:
+The product replaces the MLN2 card in Yamaha 01X and i88X devices. The A203
+terminates the replacement's XDante/AES67 network-audio function. The core
+product is therefore a hardware integration around four boundaries:
 
-1. **Network side:** the A203's Ethernet MAC/PHY-facing signals and the external
+1. **Yamaha host side:** the original MLN2 mechanical envelope and the 01X/i88X
+   power, reset, serial-audio, clock, status, and control interfaces.
+2. **Network side:** the A203's Ethernet MAC/PHY-facing signals and the external
    network components required by the vendor's reference design.
-2. **Audio side:** synchronous I2S/TDM data, word/bit/master clocks, and the mute
-   indication between the A203 and the local audio subsystem.
-3. **Control side:** reset plus a vendor-confirmed UART, SPI, I2C, or other
+3. **Audio adaptation:** synchronous I2S/TDM data, word/bit/master clocks, lane
+   mapping, and mute/lock behavior between the Yamaha MLN2 boundary and A203.
+4. **Control side:** Yamaha host compatibility plus A203 reset and a
+   vendor-confirmed UART, SPI, I2C, or other
    configuration path.
 
 There is no Windows streaming path in the core design. A desktop utility may
 eventually configure or diagnose the product, but it would not carry the A203's
 XDante/AES67 media stream.
+
+The A203 documentation establishes neither MLN2 compatibility nor the Yamaha
+host behavior. `mln2-replacement.md` defines the project requirement and the
+evidence needed before compatibility is claimed.
 
 ## Logical components
 
@@ -26,10 +34,22 @@ Power sequencing, rail current, reset timing, PHY choice, and strap requirements
 remain blocking questions; the manual does not provide enough information for a
 schematic freeze.
 
+### Yamaha MLN2 compatibility layer
+
+The replacement carrier must fit the original card location and safely adapt
+the Yamaha host interface to the A203. This includes mechanical mounting,
+connector/pin compatibility, power/reset behavior, audio lane and clock mapping,
+mute/status handling, and any host startup/identification traffic.
+
+01X and i88X support are separate profiles. A common carrier is desirable but
+will be selected only after passive measurements prove which signals and
+mechanics are actually shared. Unknown host signals are inputs to a
+characterisation plan, not candidates for guessed connections.
+
 ### Serial-audio adapter
 
-The adapter converts the product's local audio representation to the A203's
-serial-audio contract:
+The adapter converts the Yamaha host's MLN2-side audio representation to the
+A203's serial-audio contract:
 
 - 32-bit slots;
 - 24-bit or 16-bit samples left-aligned and zero-padded;
@@ -113,13 +133,16 @@ before that firmware exists. Details and gates are in `usb-bridge.md`.
 
 ## First integration milestone
 
-**Goal:** prove one stable bidirectional A203 network-audio route at the manual's
-clearly advertised 48 kHz, 24-bit operating point using a vendor-confirmed
-serial-audio mode.
+**Goal:** replace the original MLN2 card in one target Yamaha unit and prove one
+stable bidirectional XDante/AES67 route at the A203 manual's clearly advertised
+48 kHz, 24-bit operating point using measured Yamaha host behavior and a
+vendor-confirmed A203 serial-audio mode.
 
 Entry criteria:
 
 - confirmed carrier/reference schematic requirements and maximum 3.3 V load;
+- confirmed target-specific MLN2 connector, mechanics, rails, reset/startup,
+  clocking, audio lanes/slots, and safe unpowered behavior;
 - confirmed PHY/network connection and reset/power sequence;
 - confirmed A203 control interface and a safe way to select/read the test mode;
 - confirmed serial-audio lane and channel ordering for the chosen mode.
@@ -127,6 +150,8 @@ Entry criteria:
 Pass criteria:
 
 - the module powers and resets without exceeding limits;
+- the Yamaha host starts normally with the prototype installed and the
+  replacement neither contends with nor back-powers host signals;
 - clocks and MUTE/lock behavior match the confirmed configuration;
 - a reference XDante/AES67 endpoint can send and receive the selected channels;
 - an impulse/channel-ID pattern proves direction and channel order;
@@ -134,6 +159,7 @@ Pass criteria:
 - the exact hardware, firmware, configuration, PTP state, and measurements are
   recorded in a reproducible test report.
 
-Scaling to 32x32, 96 kHz, additional modes, or enabling USB compatibility
-firmware follows only after this baseline passes. USB-capable hardware may
-already be present during the baseline but must remain electrically benign.
+The same target-specific compatibility matrix must then pass on the other
+Yamaha device. Scaling channel count, adding rates/modes, or enabling USB
+compatibility firmware follows only after the baseline passes. USB-capable
+hardware may already be present but must remain electrically benign.

@@ -17,6 +17,10 @@ $expectedInputs = @(
         Path = 'a203\SerialPortDemo.rar'
         Sha256 = '70E7F49B6A5C15A7FAA2561036ECCE08BCF84D614540B7AF36417C588BDA9B31'
     }
+    [pscustomobject]@{
+        Path = 'vendor\yamaha\01x\Yamaha-01X-Service-Manual.pdf'
+        Sha256 = 'DD5769860153C6BACF693709EEC54E1BB4FACB24F76821A1CA0000F4A89166D0'
+    }
 )
 
 $failed = $false

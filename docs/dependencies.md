@@ -16,7 +16,7 @@ Required now:
 The `a203/`, `vendor/`, and `tmp/` trees are ignored. Keep supplied or extracted
 vendor material there.
 
-Verify the three reviewed local inputs after copying them into `a203/`:
+Verify the reviewed local A203 inputs and Yamaha 01X service manual:
 
 ```powershell
 .\tools\verify-local-inputs.ps1
@@ -24,6 +24,11 @@ Verify the three reviewed local inputs after copying them into `a203/`:
 
 ## Hardware bring-up equipment
 
+- Yamaha 01X and Yamaha i88X target units, plus known-good original MLN2 cards
+  for passive comparison.
+- Local Yamaha 01X service manual under ignored `vendor/yamaha/01x/`, authorised
+  i88X service information still to be obtained, mechanical measurements, and
+  a protected breakout/interposer for each Yamaha card interface.
 - A203 module with a confirmed firmware version.
 - Vendor-approved carrier/reference design or a reviewed custom carrier.
 - Current-limited 3.3 V bench supply and current measurement.
@@ -34,8 +39,10 @@ Verify the three reviewed local inputs after copying them into `a203/`:
 - USB 2.0 High-Speed signal-integrity/USB protocol test capability for bridge
   hardware validation, even if compatibility firmware is not yet available.
 
-Do not connect a carrier based only on the short hardware manual. Power current,
-reset timing, PHY implementation, and several input mappings are missing.
+Do not connect a carrier based only on the short A203 manual or an assumed MLN2
+pinout. Yamaha-host power, direction, startup behavior, and target differences,
+plus A203 current, reset timing, PHY implementation, and several input mappings,
+are missing.
 
 ## Anticipated implementation dependencies
 
@@ -70,6 +77,8 @@ For the included USB bridge hardware and later compatibility firmware:
 When implementation begins, record exact versions for:
 
 - A203 hardware revision and firmware;
+- target device (01X or i88X), serial number/revision, original MLN2 revision,
+  connector/interposer revision, and target-specific lane/control profile;
 - carrier schematic/PCB revision;
 - controller toolchain and SDK;
 - network switch, PTP configuration, and reference endpoint;

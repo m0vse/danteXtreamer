@@ -3,6 +3,31 @@
 Questions marked **blocking** must be answered before the associated design or
 implementation is committed.
 
+## Yamaha MLN2 replacement boundary
+
+1. **Blocking:** Obtain or derive an authorised MLN2 connector pinout for both
+   01X and i88X, including direction, voltage, reset state, and unused pins.
+   The local 01X service manual is available; equivalent i88X documentation is
+   still missing.
+2. **Blocking:** Are the two devices electrically and mechanically identical at
+   the card boundary? Document every difference rather than assuming a shared
+   interface from the MLN2 name.
+3. **Blocking:** Measure the card outline, connector datum, mounting holes,
+   keep-outs, chassis/shield contacts, cable clearance, and thermal envelope in
+   both devices.
+4. **Blocking:** What rails, current/inrush, sequencing, reset, presence detect,
+   identification, and startup handshake does each Yamaha host require?
+5. **Blocking:** Map every audio lane, slot, direction, word/bit/master clock,
+   sample format, channel, and supported rate for both targets.
+6. Which MIDI, control-surface, status, word-clock, or other non-audio functions
+   traverse MLN2 and must the replacement preserve them?
+7. What happens when the original card is absent, slow to start, muted, clock
+   unlocked, or reporting a fault, and what behavior must be emulated?
+8. Can one PCB safely support both devices through population/firmware options,
+   or are separate carrier variants required?
+9. Which target should be used for the first installed prototype, and what
+   evidence is required before repeating the test on the other?
+
 ## Carrier and electrical
 
 1. **Blocking:** What is the A203 maximum and typical 3.3 V current, supply

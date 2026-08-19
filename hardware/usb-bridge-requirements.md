@@ -10,6 +10,8 @@ bridge section must be safe when unpopulated or held in reset.
   not a suitable design ceiling for multichannel 24-bit audio.
 - Access to enough A203 SDIN/SDOUT lanes and MCLK/SCLK/LRCLK signals for the
   eventual supported channel count.
+- Access, through explicit ownership/isolation logic, to the Yamaha MLN2-side
+  audio lanes required by the 01X and i88X target profiles.
 - Deterministic DMA/data movement and enough RAM for bounded elastic buffering
   in both directions.
 - A clocking architecture that can slave audio-side logic to the A203 or safely
@@ -32,15 +34,16 @@ do not establish that the A203 exposes 32x32 in one particular lane mode.
   discontinuity, and via budget required by the selected stack-up.
 - Provide USB test access that does not create harmful stubs in production.
 
-## A203-side isolation
+## Yamaha/A203-side isolation
 
-- Route only vendor-confirmed serial-audio clocks/lanes to the bridge.
+- Route only measured Yamaha-host signals and vendor-confirmed A203
+  serial-audio clocks/lanes to the bridge.
 - Prevent an unpowered or reset bridge from driving or parasitically powering
-  the A203. Use devices with appropriate fail-safe I/O or explicit isolation/
-  gating where required.
+  either Yamaha host or the A203. Use devices with appropriate fail-safe I/O or
+  explicit isolation/gating where required.
 - Provide an independently controlled bridge power rail and reset/enable.
 - Make the unpopulated option electrically complete: no floating enables, clock
-  contention, or interrupted native A203 audio path.
+  contention, or interrupted Yamaha-to-A203 audio path.
 - Add test points for MCLK, SCLK, LRCLK, selected SDIN/SDOUT lanes, bridge reset,
   and power rails with a documented probing strategy.
 

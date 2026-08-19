@@ -7,4 +7,5 @@ writes module registers or initiates firmware update must require an explicit
 operation and a confirmed protocol/firmware compatibility check.
 
 `verify-local-inputs.ps1` performs a read-only SHA-256 check of the ignored A203
-manual and example archives against `docs/provenance.md`.
+manual/example archives and Yamaha 01X service manual against
+`docs/provenance.md`.

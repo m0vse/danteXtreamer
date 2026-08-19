@@ -9,6 +9,11 @@ endpoint. This is a compatibility feature, not the core network architecture.
 The USB/bridge hardware is part of the board baseline; protocol firmware may be
 implemented later.
 
+On the replacement card, USB and A203 are two possible network/host-facing
+consumers of the Yamaha MLN2-side audio. The hardware must define ownership,
+clocking, and isolation so an inactive USB bridge cannot drive or load Yamaha or
+A203 audio lanes. Concurrent USB and XDante/AES67 operation is not assumed.
+
 ## Known legacy behavior
 
 The related AudioXtreamer sources describe a custom WinUSB path carrying packed
