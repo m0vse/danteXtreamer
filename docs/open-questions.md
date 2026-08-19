@@ -7,8 +7,9 @@ implementation is committed.
 
 1. **Blocking:** Obtain or derive an authorised MLN2 connector pinout for both
    01X and i88X, including direction, voltage, reset state, and unused pins.
-   The local 01X service manual is available; equivalent i88X documentation is
-   still missing.
+   Local service manuals for both targets are available as ignored references;
+   their relevant connector information still needs to be extracted and
+   cross-checked against hardware.
 2. **Blocking:** Are the two devices electrically and mechanically identical at
    the card boundary? Document every difference rather than assuming a shared
    interface from the MLN2 name.

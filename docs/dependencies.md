@@ -13,10 +13,11 @@ Required now:
 - An archive tool that can inspect RAR files without adding extracted vendor
   material to source control.
 
-The `a203/`, `vendor/`, and `tmp/` trees are ignored. Keep supplied or extracted
-vendor material there.
+The `vendor/` and `tmp/` trees are ignored. Keep supplied or extracted vendor
+material under `vendor/` and temporary inspection output under `tmp/`.
 
-Verify the reviewed local A203 inputs and Yamaha 01X service manual:
+Verify the reviewed local A203 inputs, extracted skeletons, and Yamaha service
+manuals:
 
 ```powershell
 .\tools\verify-local-inputs.ps1
@@ -26,9 +27,9 @@ Verify the reviewed local A203 inputs and Yamaha 01X service manual:
 
 - Yamaha 01X and Yamaha i88X target units, plus known-good original MLN2 cards
   for passive comparison.
-- Local Yamaha 01X service manual under ignored `vendor/yamaha/01x/`, authorised
-  i88X service information still to be obtained, mechanical measurements, and
-  a protected breakout/interposer for each Yamaha card interface.
+- Local Yamaha 01X and i88X service manuals under ignored `vendor/yamaha/`,
+  mechanical measurements, and a protected breakout/interposer for each Yamaha
+  card interface.
 - A203 module with a confirmed firmware version.
 - Vendor-approved carrier/reference design or a reviewed custom carrier.
 - Current-limited 3.3 V bench supply and current measurement.

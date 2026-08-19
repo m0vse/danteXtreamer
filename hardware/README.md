@@ -5,8 +5,8 @@ schematics, PCB sources, Yamaha 01X/i88X variant records, pin constraints, and
 design calculations.
 
 Do not place vendor PDFs, reference archives, exported binaries, or confidential
-reference designs here. Keep them under ignored `a203/` or `vendor/` and cite
-their title/revision/hash in `docs/provenance.md`.
+reference designs here. Keep them under ignored `vendor/` and cite their title,
+revision, and hash in `docs/provenance.md`.
 
 No carrier design should be started from the A203 pin table or an assumed common
 MLN2 pinout alone. Resolve the blocking Yamaha mechanics/connector/power/startup

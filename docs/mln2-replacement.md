@@ -15,9 +15,9 @@ without depending on a Windows PC to transport network audio.
 This intent comes from the project requirements. The supplied A203 manual does
 not mention Yamaha, MLN2, 01X, or i88X and does not establish compatibility.
 
-A local Yamaha 01X service manual is available under the ignored
-`vendor/yamaha/01x/` tree and is recorded by hash in `provenance.md`. An i88X
-service manual or equivalent authorised technical reference is still required.
+Local Yamaha 01X and i88X service manuals are available under the ignored
+`vendor/yamaha/` tree and are recorded by hash in `provenance.md`. Their presence
+supports engineering reference work but does not grant redistribution rights.
 
 ## Compatibility boundary
 
@@ -67,9 +67,9 @@ actual device.
 
 1. Photograph and dimension the original card, host bay, connector, mounting,
    shields, cables, and component keep-outs for both products.
-2. Use the local 01X service manual as a reference, obtain equivalent authorised
-   i88X information, and build connector/pin tables from documentation plus
-   continuity measurements. Record confidence and source for every pin.
+2. Use both local service manuals as references and build connector/pin tables
+   from documentation plus continuity measurements. Record confidence and
+   source for every pin.
 3. With the original MLN2 installed, passively capture rails, reset, clocks,
    mute/status, and startup activity. Do not drive an unknown host signal.
 4. Use deterministic audio patterns to derive lane, slot, direction, and channel

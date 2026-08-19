@@ -15,9 +15,9 @@ target.
 
 | Local item | SHA-256 | Review outcome |
 | --- | --- | --- |
-| `a203/hm-a203-en.pdf` | `19C275980A53EBDB254BAB40AD25CAA34AB514D598365CA58C8A0BDDA8D8D8C3` | Read completely and visually checked across all 9 pages. Used as the primary hardware source. No redistribution terms found; ignored by Git. |
-| `a203/BF01_InterConn.rar` | `6FBDD7C931506488961F8DC1B3D1D461321C79A0AD20CDD5C1BE53F807737B06` | 525 archive entries; two related STM32F103 projects including vendor code, ST HAL/CMSIS, uC/OS-II-related sources, Keil state, and generated binaries. Inspected only under ignored `tmp/`; not copied. |
-| `a203/SerialPortDemo.rar` | `70E7F49B6A5C15A7FAA2561036ECCE08BCF84D614540B7AF36417C588BDA9B31` | 28 archive entries; MFC UDP discovery/register demo plus Visual Studio state and `HostCPU.exe`. No archive-level licence found; inspected only under ignored `tmp/`; not copied. |
+| `vendor/audiocom/a203/hm-a203-en.pdf` | `19C275980A53EBDB254BAB40AD25CAA34AB514D598365CA58C8A0BDDA8D8D8C3` | Read completely and visually checked across all 9 pages. Used as the primary A203 hardware source. No redistribution terms found; ignored by Git. |
+| `vendor/audiocom/a203/BF01_InterConn.rar` | `6FBDD7C931506488961F8DC1B3D1D461321C79A0AD20CDD5C1BE53F807737B06` | 525 archive entries; two related STM32F103 projects including vendor code, ST HAL/CMSIS, uC/OS-II-related sources, Keil state, and generated binaries. Preserved and extracted locally under `vendor/audiocom/a203/examples/bf01-interconnect/`; not published. |
+| `vendor/audiocom/a203/SerialPortDemo.rar` | `70E7F49B6A5C15A7FAA2561036ECCE08BCF84D614540B7AF36417C588BDA9B31` | 28 archive entries; MFC UDP discovery/register demo plus Visual Studio state and `HostCPU.exe`. Preserved and extracted locally under `vendor/audiocom/a203/examples/serial-port-demo/`; not published. |
 
 The presence of identifiable third-party notices inside parts of an archive does
 not license the archive as a whole. In particular, the BF01 archive mixes ST
@@ -32,15 +32,12 @@ rights and A203 applicability.
 - Reviewed commit: `c655eeb3b48ce4dff825a3f3a899b25ab0e0fdad`
 - Repository licence: MIT, copyright 2019 Hector Soto, TurtleDesign.
 
-One Yamaha service document was copied locally for engineering reference:
+Two Yamaha service documents are available locally for engineering reference:
 
 | Local ignored item | Origin | SHA-256 | Disposition |
 | --- | --- | --- | --- |
 | `vendor/yamaha/01x/Yamaha-01X-Service-Manual.pdf` | `audioxtreamer/docs/Yamaha-01X-Service-Manual.pdf` | `DD5769860153C6BACF693709EEC54E1BB4FACB24F76821A1CA0000F4A89166D0` | 153-page Yamaha 01X service manual; byte-for-byte local copy. Ignored and not published because the AudioXtreamer MIT licence does not establish redistribution rights for this Yamaha document. |
-
-No i88X service manual or other i88X-specific file was found in the related
-repository. Obtain an authorised reference before deriving that target's MLN2
-interface.
+| `vendor/yamaha/i88x/yamaha_i88x.pdf` | Supplied locally by the project owner | `7D4F9FBCA94FA14F5DA5116900E5AC3F4A7E4CE7D44B542833891306F9AA1867` | 92-page Yamaha i88X service manual, metadata title `i88X_SM`, dated 2004. Ignored and not published because redistribution rights have not been established. |
 
 Reviewed areas and disposition:
 

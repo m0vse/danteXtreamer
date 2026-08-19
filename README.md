@@ -77,17 +77,16 @@ carrier redesign to add it.
 
 ## Local vendor material
 
-The existing `a203/` directory contains the supplied manual and example
-archives. It is intentionally ignored by Git. Do not force-add those files or
-their extracted contents until the copyright owner supplies redistribution
-terms that cover the intended use. Inspection extracts belong under ignored
-`tmp/` only.
+All local third-party material is consolidated under ignored `vendor/`:
 
-The Yamaha 01X service manual has also been copied locally from the related
-AudioXtreamer checkout to
-`vendor/yamaha/01x/Yamaha-01X-Service-Manual.pdf`. The `vendor/` tree is ignored
-because Yamaha redistribution rights have not been established. No i88X service
-manual was present in the related checkout.
+- `vendor/audiocom/a203/` - A203 manual, original example archives, and
+  reference-only extracted firmware/software skeletons;
+- `vendor/yamaha/01x/Yamaha-01X-Service-Manual.pdf` - local 01X service manual;
+- `vendor/yamaha/i88x/yamaha_i88x.pdf` - local i88X service manual.
+
+Do not force-add these files or their extracted contents until the copyright
+owners supply redistribution terms that cover the intended use. Temporary
+inspection output belongs under ignored `tmp/`.
 
 ## Development approach
 
