@@ -1,51 +1,37 @@
-# EasyEDA schematic source
+# EasyEDA hardware source
 
-`danteXtreamer_revA_preliminary.json` is a generated, multi-sheet EasyEDA
-Standard document intended for import into EasyEDA Pro 2.2.x. It embeds the
-EasyEDA library symbols, LCSC identifiers, and PCB-package bindings for the
-selected JLCPCB-assembly parts.
+The first generated EasyEDA Standard JSON attempt has been withdrawn. It used
+inline generated symbols and produced an unacceptable schematic layout. Do not
+use commit `e01c839` as an electrical-design source.
 
-Import it using **EasyEDA Pro > File/Start page > Import > EasyEDA Standard**,
-inspect all import warnings, run ERC, and then save it as a native local EasyEDA
-Pro project. Do not order a PCB from this preliminary source.
+The replacement must be drafted as a native EasyEDA Pro project using reusable
+devices from EasyEDA libraries:
 
-The schematic deliberately treats the two module connectors differently from
-ordinary JLC parts:
+- place normal components by their EasyEDA/LCSC library device identifiers;
+- use the existing AudioXtreamer KEL connector device through the Eagle library
+  import under `library-import/`;
+- use an EasyEDA library Mini-PCI device for the A203 socket, initially
+  `C9900276972` or `C9900177431`, after footprint/height verification;
+- do not use exploded, inline, or generator-created schematic symbols;
+- use conventional wires, buses, power ports, and hierarchical/net ports rather
+  than attaching a visible net label to every device pin.
 
-- `J1`, KEL `8831E-100-170L`, is marked DNI/customer supplied. The user has
-  suitable Yamaha connectors and plans to hand-solder one.
-- `X1`, the A203 124-pin 0.8 mm Mini-PCI socket, is also initially DNI. Matching
-  JLC catalogue candidates had zero assembly stock on 2026-08-19. A verified
-  socket may instead be consigned to JLC or fitted manually. Do not release its
-  PCB footprint until keying, insertion height, retention, and chassis/module
-  clearance have been checked. The 01X is known to have ample space above the
-  PCB, so its socket height is not expected to be restrictive; the mating plane,
-  standoff geometry, and i88X clearance still need verification.
+## Yamaha connector library
 
-The Ethernet page is intentionally a design hold. The A203 hardware manual
-does not establish a supported PHY/reference design, PHY I/O voltage, RGMII
-delay ownership, straps, magnetics, or layout. Selecting a plausible PHY would
-therefore invent unsupported hardware behavior.
+The original AudioXtreamer Eagle schematic embeds a complete two-gate device
+for KEL `8831E-100-170L`, including its footprint and 102 pin/pad mappings (100
+contacts plus two shell pads). `library-import/KEL_8831E-100-170L.lbr` extracts
+that existing library without changing its geometry.
 
-## Regeneration
+EasyEDA Pro supports direct Eagle library import. Use **File > Import > EAGLE**,
+select library extraction, and save the resulting device in the EasyEDA project
+or personal library. See `library-import/README.md` for verification notes.
 
-Run:
+Regenerate the import file from the local AudioXtreamer checkout with:
 
 ```powershell
-python hardware\easyeda\generate_schematic.py
+.\tools\extract-kel-eagle-library.ps1
 ```
 
-The generator downloads current EasyEDA component-library records into the
-ignored `hardware/easyeda/.cache/` directory and embeds them in the generated
-JSON. `jlc-parts.csv` is an auditable selection/stock snapshot; recheck every
-part in the JLC parts search immediately before ordering.
-
-The generated source is preliminary in three distinct senses:
-
-1. connector symbols preserve the complete pin matrices, but their production
-   footprints are not released;
-2. the USB block captures the proven legacy pin relationship but does not claim
-   that new FX2LP firmware or FPGA timing is complete;
-3. regulator topology and FPGA package decoupling are captured, while host and
-   A203 current budgets, eFuse setting, clock conditioning, safe output-enable
-   circuitry, and the Ethernet PHY still require measurements/vendor input.
+The next schematic revision must be reviewed visually in EasyEDA Pro and pass
+ERC before it is committed as the project schematic.

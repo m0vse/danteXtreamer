@@ -25,17 +25,17 @@ mechanically, or functionally compatible.
 
 ## Status
 
-This repository currently contains the reviewed design baseline, an isolated
-source layout, and a generated eight-sheet preliminary schematic for replacing
-MLN2 in both target products. The selected FPGA is a Spartan-6
+This repository currently contains the reviewed design baseline and an isolated
+source layout for replacing MLN2 in both target products. The selected FPGA is a Spartan-6
 `XC6SLX16-2FTG256C`, with a complete provisional bank assignment for Yamaha,
-A203, and an optional full EZ-USB FX2LP interface. The EasyEDA source captures
-all 100 Yamaha contacts, all 124 A203 contacts, the FPGA units and configuration
-flash, the optional USB block, preliminary power conversion, and the complete
-FTG256 decoupling population. It is not fabrication-ready: release remains
-conditional on a combined trial implementation, power/thermal budgeting,
-physical measurements, footprint review, safe-state/clock circuitry, and A203
-vendor information.
+A203, and an optional full EZ-USB FX2LP interface. The initial generated
+EasyEDA JSON was rejected because its inline symbols and label-heavy layout were
+not an acceptable engineering schematic; it has been withdrawn. A native
+EasyEDA Pro replacement will use library devices, including the existing KEL
+connector device imported from AudioXtreamer. Schematic release remains
+conditional on that redraft, a combined trial implementation, power/thermal
+budgeting, physical measurements, footprint review, safe-state/clock circuitry,
+and A203 vendor information.
 
 The proposed first installed milestone is a measured, bidirectional 48 kHz/
 24-bit route through a danteXtreamer prototype fitted in one target Yamaha unit,
@@ -82,9 +82,8 @@ buy-ahead procurement; it is not treated as a long-life general-purpose choice.
   decision, capacity evidence, JLCPCB sourcing snapshot, and selection gates.
 - `hardware/interfaces/` - complete Yamaha and A203 connector dispositions plus
   the provisional Spartan-6 FTG256 bank/ball assignment.
-- `hardware/easyeda/` - generated EasyEDA Pro-importable preliminary schematic,
-  regeneration script, JLC/LCSC selection manifest, connector assembly policy,
-  and import instructions.
+- `hardware/easyeda/` - native EasyEDA drafting requirements and the reusable
+  KEL connector library-import source extracted from AudioXtreamer.
 - `hardware/usb-bridge-requirements.md` - board-level requirements for including
   USB compatibility before its firmware is implemented.
 - `src/control/` - future A203 control-plane code after protocol confirmation.
@@ -131,11 +130,10 @@ To confirm that the ignored local inputs match the reviewed versions:
 .\tools\verify-local-inputs.ps1
 ```
 
-To regenerate and structurally verify the preliminary EasyEDA source:
+To regenerate the KEL Eagle-library import file:
 
 ```powershell
-python hardware\easyeda\generate_schematic.py
-.\tools\verify-easyeda-schematic.ps1
+.\tools\extract-kel-eagle-library.ps1
 ```
 
 ## Licensing
