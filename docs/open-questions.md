@@ -102,12 +102,12 @@ implementation is committed.
 
 ## AudioXtreamer USB bridge
 
-1. **Resolved for the compatibility prototype only:** Provision independently powered
+1. **Resolved for the first board:** Provision independently powered
    `CY7C68013A-100AXC` FX2LP hardware with the full 16-bit FIFO and eight-bit
-   legacy register/control buses. Revisit a smaller or modern controller only
-   as an explicit protocol-multiplexing redesign. **Blocking for production:**
-   choose buy-ahead FX2LP versus an FX2G3 controller option after JLC sourcing,
-   footprint, firmware, and mechanical review.
+   legacy register/control buses. Its discontinued status is accepted for this
+   low-volume compatibility design. Record the required build quantity and
+   buy-ahead/rework stock before schematic release. FX2G3 is a future redesign,
+   not a dual-footprint requirement.
 2. **Blocking for schematic freeze:** Which A203 lanes/clocks must be routed to
    the bridge, and what electrical isolation guarantees an unpowered,
    unprogrammed, or unpopulated bridge cannot load them?

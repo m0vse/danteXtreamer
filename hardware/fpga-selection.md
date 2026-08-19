@@ -91,7 +91,7 @@ rechecked at BOM release:
 | --- | --- | ---: | ---: | --- |
 | [`XC6SLX16-2FTG256C` / `C39313`](https://jlcpcb.com/partdetail/XC6SLX16-2FTG256C/C39313) | Extended; Standard PCBA; MSL 3; X-ray required | 2,058 | about US$7.72 | primary FPGA |
 | [`XC6SLX16-2FTG256I` / `C415800`](https://jlcpcb.com/partdetail/XC6SLX16-2FTG256I/C415800) | Extended; Standard PCBA; MSL 3; X-ray required | LCSC 905 | about US$14.86 | industrial alternate |
-| [`CY7C68013A-100AXC` / `C9926`](https://jlcpcb.com/partdetail/CypressSemicon-CY7C68013A100AXC/C9926) | Extended; Economic/Standard PCBA; manufacturer-discontinued | LCSC 2,140 | about US$13.15 | compatibility prototype only |
+| [`CY7C68013A-100AXC` / `C9926`](https://jlcpcb.com/partdetail/CypressSemicon-CY7C68013A100AXC/C9926) | Extended; Economic/Standard PCBA; manufacturer-discontinued | LCSC 2,140 | about US$13.15 | selected first-board USB controller |
 
 The cheaper/smaller FX2LP `CY7C68013A-56LTXC` (`C14912`) is not the baseline:
 its 24 GPIOs cannot expose the existing 16-bit FIFO plus independent eight-bit
@@ -103,9 +103,9 @@ and identifies [`CYUSB2316-BF104AXI` FX2G3 as active and preferred](https://www.
 FX2G3 supports a 16-bit bidirectional Slave FIFO and has maintained firmware
 examples, but uses a non-pin-compatible 104-LGA footprint. No JLC/LCSC catalogue
 entry was found on 2026-08-19; Mouser search results showed 2,328 in stock.
-Therefore Rev A may use buy-ahead `C9926` for protocol compatibility, while a
-production decision must compare a separately laid-out/consigned FX2G3 option.
-The 39 FPGA signals remain reserved either way.
+Therefore Rev A selects buy-ahead `C9926` for protocol compatibility. FX2G3 is
+retained as a future board-revision option rather than a first-board footprint.
+The full 39-signal FPGA interface remains reserved.
 
 AMD currently states Spartan-6 support through at least 2030. That is useful but
 not a perpetual availability guarantee. For every prototype or production lot:

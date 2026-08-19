@@ -54,14 +54,14 @@ patches, licence mode, operating-system/VM image, environment setup, and hashes
 before treating a build as reproducible. Do not vendor the installer or Xilinx
 SDK content into this repository.
 
-The optional compatibility-prototype controller baseline is EZ-USB FX2LP
-`CY7C68013A-100AXC`. Infineon now marks it discontinued, so this is a
-compatibility/buy-ahead choice rather than a long-life production choice. Its
+The selected optional controller is EZ-USB FX2LP `CY7C68013A-100AXC`. Infineon
+now marks it discontinued, so this is an intentional compatibility/buy-ahead
+choice rather than a long-life production choice. Its
 firmware toolchain and redistributable device headers remain to be selected.
 The smaller 56-pin FX2LP is not pin-compatible with the full legacy FPGA
 interface because it exposes too few GPIOs. The active successor
-`CYUSB2316-BF104AXI` (FX2G3) has a 16-bit Slave FIFO and current SDK but requires
-a different 104-LGA footprint and firmware port.
+`CYUSB2316-BF104AXI` (FX2G3) remains a future redesign option; it requires a
+different 104-LGA footprint and firmware port.
 
 Other likely categories, not current commitments, are:
 

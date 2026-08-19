@@ -197,12 +197,12 @@ least as capable as the legacy FX2 arrangement:
 - USB-C configured as a USB 2.0 device-only port, with ESD protection and no
   carrier back-power path.
 
-The compatibility-prototype footprint baseline is the 100-pin EZ-USB FX2LP
-`CY7C68013A-100AXC`, which has enough GPIOs for both legacy buses but is now
-manufacturer-discontinued. The active FX2G3 successor has the required 16-bit
-FIFO in a non-pin-compatible 104-LGA package and was not in JLC's library at
-review time. A production controller therefore remains a sourcing/firmware
-gate. Direct ULPI-to-FPGA USB is not the baseline because it adds a USB device
+The selected first-board controller is the stocked 100-pin EZ-USB FX2LP
+`CY7C68013A-100AXC`, which has enough GPIOs for both legacy buses. Its
+manufacturer-discontinued status is accepted for this low-volume compatibility
+design and requires buy-ahead stock before schematic release. The active FX2G3
+successor is a future non-pin-compatible redesign rather than a dual footprint.
+Direct ULPI-to-FPGA USB is not the baseline because it adds a USB device
 core and substantially increases firmware, verification, and licensing risk.
 The USB section must not sit in the native Yamaha-to-A203 path.
 

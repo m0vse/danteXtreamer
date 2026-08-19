@@ -52,6 +52,11 @@ documented and is not yet glitch-free. The first carrier may leave the bridge
 processing section unpopulated or held in reset, but it should not require a
 carrier redesign to add it.
 
+The selected USB controller for the first board is the stocked 100-pin EZ-USB
+FX2LP `CY7C68013A-100AXC` (JLCPCB `C9926`). Its manufacturer-discontinued status
+is accepted for this low-volume compatibility design and managed through
+buy-ahead procurement; it is not treated as a long-life general-purpose choice.
+
 ## Repository map
 
 - `docs/architecture.md` - system boundaries, data/control planes, and staged

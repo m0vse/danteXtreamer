@@ -105,7 +105,7 @@ its compatibility firmware may follow later. The board must reserve:
 The FPGA is shared with the core audio adapter. The board should reserve an
 independently powered USB High-Speed controller and an FPGA bus at least as
 capable as the legacy 16-bit, 48 MHz FX2 FIFO plus register interface. The
-first-prototype controller baseline is the 100-pin `CY7C68013A-100AXC`;
+selected first-board controller is the stocked 100-pin `CY7C68013A-100AXC`;
 firmware and the complete descriptor/control contract remain open. Direct
 ULPI-to-FPGA USB is not the baseline because it adds a USB device core and
 avoidable verification/licensing risk. See
