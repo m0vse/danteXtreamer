@@ -1,118 +1,153 @@
 # FPGA selection record
 
-## Decision status
+## Decision
 
-The architecture now assumes an FPGA, but the production ordering code is not
-frozen. The leading baseline is **Lattice Certus-NX LFD2NX-25 in the 256-ball,
-0.8 mm-pitch caBGA package**, subject to a completed pin/bank allocation,
-portable RTL trial build, power estimate, and an authorised-distributor
-availability check.
+The first board targets **AMD/Xilinx Spartan-6 `XC6SLX16-2FTG256C`**:
 
-This choice is deliberately about I/O density, 3.3 V bank capacity, low-power
-bridging, and maintainable tools. No high-speed transceivers or hard CPU are
-required because the A203 owns the Ethernet/Dante/AES67 data plane.
+- JLCPCB/LCSC part: **`C39313`**
+- package: 256-ball FTG/FBGA; 17 x 17 mm; 1.0 mm pitch
+- temperature grade: commercial; 0 to 85 deg C
+- user I/O: 186
+- primary design tools: Xilinx ISE 14.7
 
-## Provisional I/O budget
+The pin-compatible industrial `XC6SLX16-2FTG256I` (`C415800`) is an approved
+alternate if thermal analysis requires -40 to 100 deg C. Do not mix grades in a
+production run without updating the BOM and timing/power review.
 
-All counts include margin because several Yamaha and A203 control directions
-remain unconfirmed.
+This is a deliberate mature-device choice. It reuses proven AudioXtreamer
+constraints and RTL structure, is presently inexpensive and well stocked for
+JLCPCB assembly, and has enough package I/O for Yamaha, A203, and optional USB
+at the same time. Its cost is the obsolete ISE workflow and a shorter remaining
+manufacturer support horizon than a new FPGA family.
 
-| Interface | Provisional FPGA I/O | Basis |
-| --- | ---: | --- |
-| Yamaha audio/clocks | 30 | 12 inputs, 12 outputs, BCK/MCK/WCLK contacts and clock-direction margin |
-| Yamaha MIDI/control/status | 16 | 10 MIDI plus detect, mute, reset, clock ownership, and spare status |
-| A203 audio clocks/data | 24 | 16 data pins, MCLK/SCLK/LRCLK, external clocks, reset/mute, margin |
-| A203 control/debug | 12 | UART/SPI/I2C selection and status; may reduce after protocol confirmation |
-| Optional legacy-capable USB controller | 40 | 16-bit FIFO, FIFO controls, 8-bit register bus, status/frame/reset |
-| Board configuration/debug/spares | 12 | straps, LEDs, triggers, recovery and future test |
-| **Planning total** | **134** | Mostly 3.3 V single-ended I/O |
+## What the FPGA does
 
-The final total may be lower if A203 control terminates in a dedicated MCU or
-if the USB controller uses one multiplexed bus. It must not be reduced on paper
-until the interfaces are captured in a pin-assignment spreadsheet.
+The FPGA does not implement Dante, AES67, Ethernet, or USB signalling:
 
-## Minimum device requirements
+- the A203 owns Dante/AES67 and its external Ethernet PHY interface;
+- an optional EZ-USB FX2LP owns USB 2.0 High-Speed signalling and endpoints;
+- the FPGA captures and emits Yamaha serial audio/MIDI, packs and unpacks A203
+  TDM lanes, routes channels, crosses clock domains, and exposes diagnostics;
+- the same channel router may feed A203 and USB concurrently.
 
-| Area | Minimum | Preferred target |
-| --- | --- | --- |
-| 3.3 V-capable user I/O | 134 after configuration pins and bank restrictions | 150 or more, across enough independently powered banks |
-| Logic | 15k class | 25k class for USB/control margin and debug instrumentation |
-| Embedded RAM | 0.5 Mbit | 1 Mbit or more for dual-clock FIFOs, capture, and diagnostics |
-| PLLs | 2 | 2-4; audio clock ownership still uses external/dedicated clock routing |
-| Global/clock-capable inputs | Yamaha BCK/MCK/WCLK, A203 SCLK/LRCLK/MCLK, USB clock | At least six conveniently placed clock inputs |
-| I/O performance | clean 24.576 MHz 3.3 V audio and 48 MHz synchronous USB FIFO | source-synchronous constraints and per-pin delay support |
-| Configuration | external non-volatile image, JTAG | recoverable multiboot or golden image |
-| Package | manufacturable BGA with enough grounds and bank access | 0.8 mm pitch, 14-15 mm body |
-| Tools | supported Windows build, VHDL/SystemVerilog, timing analysis, on-chip debug | usable without a paid licence for this device |
+Simultaneous A203 and USB operation is therefore within the architectural
+scope. It is not considered proven until a combined ISE build meets timing and
+hardware loopback runs without FIFO drift, underrun, or overrun.
 
-The resource target does not include sample-rate conversion. The baseline
-requires frequency-locked Yamaha and A203 clocks; asynchronous SRC would change
-the signal-processing and memory requirements substantially.
+## Capacity evidence
 
-## Candidate comparison
+The existing AudioXtreamer `xc6slx16-2-ftg256` post-route report is the most
+relevant measured baseline because it already contains the Yamaha 12-in/12-out
+serial lanes, five MIDI paths each way, 16-bit FX2 FIFO, eight-bit LSI control
+bus, and dual-clock audio FIFOs.
 
-The figures below come from current manufacturer documentation reviewed on
-2026-08-19. Package-specific bank allocation and configuration-pin sharing
-still require a real pin-planning exercise.
+| Resource | Existing routed use | Device capacity | Headroom |
+| --- | ---: | ---: | ---: |
+| Slice registers | 4,891 | 18,224 | 73% |
+| Slice LUTs | 4,792 | 9,112 | 47% |
+| Bonded I/O | 77 | 186 | 109 pins |
+| RAMB8BWER | 32 | 64 | 50% |
+| BUFG/BUFGMUX | 2 | 16 | 87% |
+| DCM | 0 | 4 | 100% |
+| DSP48A1 | 0 | 32 | 100% |
+| PLL_ADV | 0 | 2 | 100% |
 
-| Candidate | Useful package facts | Fit | Main concern |
-| --- | --- | --- | --- |
-| **Lattice Certus-NX LFD2NX-25, caBGA256** | 25k logic cells; 1,440 kbit EBR + 512 kbit LRAM; 2 GPLLs; 205 total I/O comprising 159 wide-range, 40 high-performance, and 6 ADC pins; 14 x 14 mm, 0.8 mm pitch | Best present fit: the 159 wide-range pins can support the largely 3.3 V plan with useful margin | Requires Radiant licensing registration and a new tool flow; two PLLs leave less architectural margin than some alternatives |
-| **AMD Spartan-7 XC7S50, CSGA324** | 210 user I/O in a 15 x 15 mm, 0.8 mm package; HR banks support 3.3 V; all Spartan-7 devices are supported by the no-cost Vivado tier | Strong conservative alternative and closest modern continuation of existing Xilinx/VHDL experience | Larger fabric than needed; more involved power/configuration design and a larger ball count |
-| **Altera Cyclone 10 LP 10CL025, U256** | 25k logic elements, 594 kbit M9K RAM, 4 PLLs, up to 150 GPIO; 14 x 14 mm, 0.8 mm pitch; 3.3 V I/O; supported by Quartus Prime Lite | Meets the current I/O floor and has a straightforward free tool path | Least RAM and I/O margin of the shortlist; mature 60 nm family and bank/package planning may become tight with the full USB option |
+The A203 addition needs eight serial inputs, eight serial outputs, five clock
+contacts, and a bounded control set. TDM pack/unpack and counters are small
+relative to the remaining 4,320 LUTs. New elastic FIFOs should use remaining
+block RAM rather than distributed LUT RAM.
 
-Official references:
+The current package assignment reserves 122 user I/O:
 
-- [Lattice Certus-NX product table and current data sheet](https://www.latticesemi.com/Products/FPGAandCPLD/Certus-NX?ActiveTab=Data+Sheet)
-- [Lattice Radiant licence options](https://www.latticesemi.com/Products/DesignSoftwareAndIP/FPGAandLDS/Radiant)
-- [AMD 7-series package/I/O guide](https://docs.amd.com/r/en-US/ug475_7Series_Pkg_Pinout)
-- [AMD Spartan-7 product page](https://www.amd.com/en/products/adaptive-socs-and-fpgas/fpga/spartan-7.html)
-- [Altera Cyclone 10 LP device overview](https://www.intel.com/content/www/us/en/products/details/fpga/cyclone/10/lp.html)
-- [Quartus Prime edition/device support](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html)
+| Bank | Capacity | Assigned | Primary owner | Free |
+| --- | ---: | ---: | --- | ---: |
+| 0 | 40 | 31 | A203 audio and SPI/status | 9 |
+| 1 | 50 | 39 | optional full-width FX2LP interface | 11 |
+| 2 | 40 | 12 | A203 UART/I2C and board debug | 28 |
+| 3 | 56 | 40 | Yamaha audio/MIDI/clocks | 16 |
+| **Total** | **186** | **122** |  | **64** |
 
-## Why Certus-NX-25 leads
+All 122 balls were checked against AMD's official
+`6slx16ftg256pkg.txt`; every proposed ball exists and matches its stated bank.
+All four banks are provisionally 3.3 V LVCMOS. The final UCF and ISE placer are
+still authoritative.
 
-The 25k device in caBGA256 is a better fit than selecting the largest Certus-NX
-part by habit. In this package it exposes 159 wide-range I/O pins, whereas the
-40k device exposes fewer wide-range pins because more pins are assigned to
-high-performance functions. The design needs ordinary 3.3 V bridging I/O much
-more than PCIe, DSP, or transceivers. Its nearly 2 Mbit of embedded memory is
-also ample for bounded audio FIFOs and diagnostic capture without external
-SDRAM.
+Dedicated/reserved configuration connections are separate from the 122 user
+I/O count: JTAG `C14/C12/A15/E14`; `PROGRAM_B` T2; `DONE` P13; `INIT_B` R3;
+master-SPI `CCLK` R11, `DIN/MISO` P10, and `MOSI/CSI_B` T10. `HSWAPEN` C4 is
+not allocated as user I/O. External devices must not drive multifunction
+configuration pins during startup.
 
-The 0.8 mm pitch permits a more conventional escape strategy than the smaller
-0.5 mm packages. A 14 mm body should leave more placement freedom around the
-A203 and rear-panel connectors, subject to the physical chassis survey.
+The design acceptance target is below 80% LUT, below 80% block RAM, no bank
+over-allocation, no unconstrained clocks or CDC paths, and positive timing
+margin at Yamaha/A203 audio clocks and the 48 MHz FX2 interface.
 
-## Why not freeze it yet
+## JLCPCB assembly and availability snapshot
 
-Four checks can still reverse the recommendation:
+Observed on **2026-08-19**; inventory and pricing are volatile and must be
+rechecked at BOM release:
 
-1. A complete bank-aware pin assignment must prove that at least 134 required
-   signals fit while preserving clock pins, configuration pins, JTAG, bank
-   voltages, and PCB escape.
-2. A small portable RTL project must synthesize and meet timing for Yamaha
-   capture/serialization, TDM8 packing, dual-clock FIFOs, error counters, and a
-   48 MHz 16-bit USB FIFO loopback.
-3. The power estimate must fit the measured Yamaha +5 V budget together with
-   the A203, PHY, and optional USB controller.
-4. The exact device/speed/temperature/package ordering code must have acceptable
-   lifecycle, lead time, and price from an authorised distributor at the point
-   of schematic freeze.
+| Part | JLCPCB status | Observed stock | One-off indication | Use |
+| --- | --- | ---: | ---: | --- |
+| [`XC6SLX16-2FTG256C` / `C39313`](https://jlcpcb.com/partdetail/XC6SLX16-2FTG256C/C39313) | Extended; Standard PCBA; MSL 3; X-ray required | 2,058 | about US$7.72 | primary FPGA |
+| [`XC6SLX16-2FTG256I` / `C415800`](https://jlcpcb.com/partdetail/XC6SLX16-2FTG256I/C415800) | Extended; Standard PCBA; MSL 3; X-ray required | LCSC 905 | about US$14.86 | industrial alternate |
+| [`CY7C68013A-100AXC` / `C9926`](https://jlcpcb.com/partdetail/CypressSemicon-CY7C68013A100AXC/C9926) | Extended; Economic/Standard PCBA; manufacturer-discontinued | LCSC 2,140 | about US$13.15 | compatibility prototype only |
 
-If the pin plan exceeds the Certus-NX-25 wide-range-bank capacity, prefer the
-Spartan-7 XC7S50 CSGA324 or a larger Certus-NX package rather than using fragile
-voltage translation solely to preserve the initial choice.
+The cheaper/smaller FX2LP `CY7C68013A-56LTXC` (`C14912`) is not the baseline:
+its 24 GPIOs cannot expose the existing 16-bit FIFO plus independent eight-bit
+LSI/control bus without a firmware and FPGA protocol redesign. It may be studied
+later as a multiplexed-interface cost reduction.
 
-## Prototype decision gate
+[Infineon lists `CY7C68013A-100AXC` as end-of-life](https://www.infineon.com/part/CY7C68013A-100AXC)
+and identifies [`CYUSB2316-BF104AXI` FX2G3 as active and preferred](https://www.infineon.com/part/CYUSB2316-BF104AXI).
+FX2G3 supports a 16-bit bidirectional Slave FIFO and has maintained firmware
+examples, but uses a non-pin-compatible 104-LGA footprint. No JLC/LCSC catalogue
+entry was found on 2026-08-19; Mouser search results showed 2,328 in stock.
+Therefore Rev A may use buy-ahead `C9926` for protocol compatibility, while a
+production decision must compare a separately laid-out/consigned FX2G3 option.
+The 39 FPGA signals remain reserved either way.
 
-Freeze the FPGA only when the repository contains:
+AMD currently states Spartan-6 support through at least 2030. That is useful but
+not a perpetual availability guarantee. For every prototype or production lot:
 
-- reviewed Yamaha and A203 pin matrices with direction, I/O standard, reset
-  state, clock domain, and selected FPGA bank;
-- a package escape sketch and preliminary stack-up;
-- tool-generated utilisation, timing, and power reports for the portable trial
-  design;
-- a rail/inrush budget covering USB-populated and USB-unpopulated variants;
-- a sourcing record for at least the FPGA, configuration flash, A203 connector,
-  Ethernet PHY, USB controller, and Yamaha mating connector.
+1. recheck JLCPCB stock and assembly classification;
+2. verify device top-mark and authorised sourcing status;
+3. buy/pre-order enough Extended parts for the run plus rework yield;
+4. retain the industrial ordering code as a BOM alternate;
+5. archive the final JLC BOM/placement result with the hardware revision.
+
+## USB hardware reference
+
+The ZTEX USB-FPGA Module 2.01 schematic confirms the legacy architecture:
+
+- a 100-pin EZ-USB FX2 with PB/PD as the 16-bit `FD` bus;
+- PC0..7 as the separate LSI/GPIF address/control byte;
+- PA/CTL/RDY and selected PE signals for FIFO and status control;
+- a 24 MHz crystal, I2C boot EEPROM, USB connector, and reset supervisor;
+- FX2 access to Spartan-6 configuration and JTAG plus an SPI configuration
+  flash on the module.
+
+Reference: [ZTEX USB-FPGA Module 2.01 circuit diagram](https://www.ztex.de/downloads/usb-fpga-2.01.pdf).
+The PDF is stored only in ignored `vendor/ztex/` local material; redistribution
+rights have not been assumed. The new carrier keeps the signal capability but
+places USB on FPGA bank 1, isolating it from the bank-2 master-SPI boot path.
+
+## Why not Certus-NX for this revision
+
+Certus-NX remains a credible migration family, but it would require porting and
+validating the full RTL/tool flow. The package variants with enough wide-range
+3.3 V I/O were not as readily available through the intended JLCPCB supply
+chain at review time. Spartan-6 already has measured resource evidence and
+excellent JLC/LCSC stock. The old toolchain is accepted for this board revision
+with a reproducible build environment and archived installer/license notes.
+
+## Remaining decision gates
+
+The FPGA ordering code is selected, but schematic release remains blocked by:
+
+- a combined Yamaha/A203/FX2 top-level trial build and real ISE timing report;
+- A203 electrical/control and Ethernet-PHY reference documentation;
+- measured Yamaha clock names, voltage levels, reset states, power, and inrush;
+- thermal/power estimates showing the commercial 85 deg C grade is adequate;
+- BGA escape and JLCPCB stack-up review;
+- a fresh sourcing snapshot immediately before parts are pre-ordered.

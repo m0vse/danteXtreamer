@@ -1,0 +1,123 @@
+bank,ball,fpga_signal,direction,iostandard,clock_capable,interface,reset_disposition,status
+0,C9,A203_SCLK,input,LVCMOS33,yes,A203,observe only,proposed
+0,A9,A203_MCLK,input,LVCMOS33,yes,A203,observe only,proposed
+0,B10,A203_LRCLK,input,LVCMOS33,yes,A203,observe only,proposed
+0,B5,A203_EXTERNAL_CLK,output,LVCMOS33,no,A203,high impedance until clock owner selected,proposed
+0,A5,A203_LRCLK_IN,output,LVCMOS33,no,A203,high impedance until clock owner selected,proposed
+0,D5,A203_SDOUT0,input,LVCMOS33,no,A203,observe only,proposed
+0,C5,A203_SDOUT1,input,LVCMOS33,no,A203,observe only,proposed
+0,B6,A203_SDOUT2,input,LVCMOS33,no,A203,observe only,proposed
+0,A6,A203_SDOUT3,input,LVCMOS33,no,A203,observe only,proposed
+0,F7,A203_SDOUT4,input,LVCMOS33,no,A203,observe only,proposed
+0,E6,A203_SDOUT5,input,LVCMOS33,no,A203,observe only,proposed
+0,C7,A203_SDOUT6,input,LVCMOS33,no,A203,observe only,proposed
+0,A7,A203_SDOUT7,input,LVCMOS33,no,A203,observe only,proposed
+0,D6,A203_SDIN0,output,LVCMOS33,no,A203,low or high impedance until lock,proposed
+0,C6,A203_SDIN1,output,LVCMOS33,no,A203,low or high impedance until lock,proposed
+0,E7,A203_SDIN2,output,LVCMOS33,no,A203,low or high impedance until lock,proposed
+0,E8,A203_SDIN3,output,LVCMOS33,no,A203,low or high impedance until lock,proposed
+0,E10,A203_SDIN4,output,LVCMOS33,no,A203,low or high impedance until lock,proposed
+0,C10,A203_SDIN5,output,LVCMOS33,yes,A203,low or high impedance until lock,proposed
+0,D8,A203_SDIN6,output,LVCMOS33,no,A203,low or high impedance until lock,proposed
+0,C8,A203_SDIN7,output,LVCMOS33,no,A203,low or high impedance until lock,proposed
+0,C11,A203_SPI_MISO_B,input,LVCMOS33,no,A203 control,observe only,proposed
+0,A11,A203_SPI_MOSI_B,output,LVCMOS33,no,A203 control,high until selected,proposed
+0,F9,A203_SPI_CLK_B,output,LVCMOS33,no,A203 control,low until selected,proposed
+0,D9,A203_SPI_SEL_B_N,output,LVCMOS33,no,A203 control,high until selected,proposed
+0,B12,A203_SPI_ADDR0,inout,LVCMOS33,no,A203 control,high impedance pending definition,proposed verify direction
+0,A12,A203_SPI_ADDR1,inout,LVCMOS33,no,A203 control,high impedance pending definition,proposed verify direction
+0,A13,A203_MUTE,input,LVCMOS33,no,A203 status,external safe pull footprint,proposed verify polarity
+0,E11,A203_GPIO6,inout,LVCMOS33,no,A203 control,high impedance until defined,proposed
+0,B14,A203_GPIO7,inout,LVCMOS33,no,A203 control,high impedance until defined,proposed
+0,F10,A203_FPGA_DONE,output,LVCMOS33,no,A203 control,low until configured and safe,proposed verify polarity
+1,J13,USB_IFCLK,input,LVCMOS33,yes,FX2LP,observe only,proposed
+1,E13,USB_FD0,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,E12,USB_FD1,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,B15,USB_FD2,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,B16,USB_FD3,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,F12,USB_FD4,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,G11,USB_FD5,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,D14,USB_FD6,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,D16,USB_FD7,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,F13,USB_FD8,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,F14,USB_FD9,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,C15,USB_FD10,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,C16,USB_FD11,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,E15,USB_FD12,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,E16,USB_FD13,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,F15,USB_FD14,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,F16,USB_FD15,inout,LVCMOS33,no,FX2LP,high impedance,proposed
+1,G14,USB_PA7_FLAGD,input,LVCMOS33,no,FX2LP,external pull per firmware contract,proposed
+1,G16,USB_SLRD_N,output,LVCMOS33,no,FX2LP,high,proposed
+1,H15,USB_SLWR_N,output,LVCMOS33,no,FX2LP,high,proposed
+1,H16,USB_FLAGA,input,LVCMOS33,no,FX2LP,external pull per firmware contract,proposed
+1,G12,USB_FLAGB,input,LVCMOS33,no,FX2LP,external pull per firmware contract,proposed
+1,H11,USB_SLOE_N,output,LVCMOS33,no,FX2LP,high,proposed
+1,H13,USB_FIFOADDR0,output,LVCMOS33,no,FX2LP,low,proposed
+1,H14,USB_FIFOADDR1,output,LVCMOS33,no,FX2LP,low,proposed
+1,J11,USB_PKTEND_N,output,LVCMOS33,yes,FX2LP,high,proposed
+1,J12,USB_LSI_D0,inout,LVCMOS33,yes,FX2LP control,high impedance,proposed
+1,K12,USB_LSI_D1,inout,LVCMOS33,yes,FX2LP control,high impedance,proposed
+1,K11,USB_LSI_D2,inout,LVCMOS33,yes,FX2LP control,high impedance,proposed
+1,J14,USB_LSI_D3,inout,LVCMOS33,yes,FX2LP control,high impedance,proposed
+1,J16,USB_LSI_D4,inout,LVCMOS33,yes,FX2LP control,high impedance,proposed
+1,K15,USB_LSI_D5,inout,LVCMOS33,no,FX2LP control,high impedance,proposed
+1,K16,USB_LSI_D6,inout,LVCMOS33,no,FX2LP control,high impedance,proposed
+1,N14,USB_LSI_D7,inout,LVCMOS33,no,FX2LP control,high impedance,proposed
+1,N16,USB_LSI_RDNCK,input,LVCMOS33,no,FX2LP control,external pull per firmware contract,proposed
+1,M15,USB_LSI_EN,input,LVCMOS33,no,FX2LP control,external pull per firmware contract,proposed
+1,M16,USB_EZ_INT,output,LVCMOS33,no,FX2LP control,inactive,proposed verify polarity
+1,L14,USB_EZ_BSY,output,LVCMOS33,no,FX2LP control,inactive,proposed verify polarity
+1,L16,USB_EZ_SOF,input,LVCMOS33,no,FX2LP control,external pull per firmware contract,proposed
+2,L10,A203_UART_A_TX,input,LVCMOS33,no,A203 control,observe only,proposed verify CMOS levels
+2,M10,A203_UART_A_RX,output,LVCMOS33,no,A203 control,inactive,proposed verify CMOS levels
+2,R9,A203_UART_A_OE,output,LVCMOS33,no,A203 control,inactive,proposed verify polarity
+2,T9,A203_UART_B_TX,input,LVCMOS33,no,A203 control,observe only,proposed verify CMOS levels
+2,M9,A203_UART_B_RX,output,LVCMOS33,yes,A203 control,inactive,proposed verify CMOS levels
+2,N8,A203_UART_B_OE,output,LVCMOS33,yes,A203 control,inactive,proposed verify polarity
+2,P7,A203_I2C_SDA,inout,LVCMOS33,yes,A203 control,high impedance,proposed verify protocol
+2,M7,A203_I2C_SCL,output,LVCMOS33,yes,A203 control,high impedance,proposed verify protocol
+2,R7,STATUS_LED0,output,LVCMOS33,yes,board debug,off,proposed
+2,T7,STATUS_LED1,output,LVCMOS33,yes,board debug,off,proposed
+2,P6,DEBUG_TRIGGER0,output,LVCMOS33,no,board debug,low,proposed
+2,T6,DEBUG_TRIGGER1,output,LVCMOS33,no,board debug,low,proposed
+3,F2,YAMAHA_WCKI,input,LVCMOS33,yes,Yamaha,observe only,proposed
+3,F1,YAMAHA_BCKI,input,LVCMOS33,yes,Yamaha,observe only,proposed
+3,J6,YAMAHA_MCKI,input,LVCMOS33,yes,Yamaha,observe only,proposed
+3,H5,YAMAHA_WCKO,output,LVCMOS33,yes,Yamaha,high impedance until selected,proposed
+3,H4,YAMAHA_BCKO,output,LVCMOS33,yes,Yamaha,high impedance until selected,proposed
+3,H3,YAMAHA_MCKO,output,LVCMOS33,yes,Yamaha,high impedance until selected,proposed
+3,M4,YAMAHA_AIN1,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,M3,YAMAHA_AIN2,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,M5,YAMAHA_AIN3,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,N4,YAMAHA_AIN4,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,R2,YAMAHA_AIN5,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,R1,YAMAHA_AIN6,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,P2,YAMAHA_AIN7,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,P1,YAMAHA_AIN8,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,N3,YAMAHA_AIN9,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,N1,YAMAHA_AIN10,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,M2,YAMAHA_AIN11,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,M1,YAMAHA_AIN12,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,L3,YAMAHA_AOUT1,output,LVCMOS33,no,Yamaha,low or high impedance until lock,proposed
+3,L1,YAMAHA_AOUT2,output,LVCMOS33,no,Yamaha,low or high impedance until lock,proposed
+3,K2,YAMAHA_AOUT3,output,LVCMOS33,no,Yamaha,low or high impedance until lock,proposed
+3,K1,YAMAHA_AOUT4,output,LVCMOS33,no,Yamaha,low or high impedance until lock,proposed
+3,J3,YAMAHA_AOUT5,output,LVCMOS33,no,Yamaha,low or high impedance until lock,proposed
+3,J1,YAMAHA_AOUT6,output,LVCMOS33,no,Yamaha,low or high impedance until lock,proposed
+3,H2,YAMAHA_AOUT7,output,LVCMOS33,no,Yamaha,low or high impedance until lock,proposed
+3,H1,YAMAHA_AOUT8,output,LVCMOS33,no,Yamaha,low or high impedance until lock,proposed
+3,G3,YAMAHA_AOUT9,output,LVCMOS33,no,Yamaha,low or high impedance until lock,proposed
+3,G1,YAMAHA_AOUT10,output,LVCMOS33,no,Yamaha,low or high impedance until lock,proposed
+3,L4,YAMAHA_AOUT11,output,LVCMOS33,no,Yamaha,low or high impedance until lock,proposed
+3,L5,YAMAHA_AOUT12,output,LVCMOS33,no,Yamaha,low or high impedance until lock,proposed
+3,E2,YAMAHA_MIDI_IN1,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,E1,YAMAHA_MIDI_IN2,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,K5,YAMAHA_MIDI_IN3,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,K6,YAMAHA_MIDI_IN4,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,C3,YAMAHA_MIDI_IN5,input,LVCMOS33,no,Yamaha,observe only,proposed
+3,C2,YAMAHA_MIDI_OUT1,output,LVCMOS33,no,Yamaha,high impedance until configured,proposed
+3,D3,YAMAHA_MIDI_OUT2,output,LVCMOS33,no,Yamaha,high impedance until configured,proposed
+3,D1,YAMAHA_MIDI_OUT3,output,LVCMOS33,no,Yamaha,high impedance until configured,proposed
+3,C1,YAMAHA_MIDI_OUT4,output,LVCMOS33,no,Yamaha,high impedance until configured,proposed
+3,B1,YAMAHA_MIDI_OUT5,output,LVCMOS33,no,Yamaha,high impedance until configured,proposed

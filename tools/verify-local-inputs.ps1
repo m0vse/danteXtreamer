@@ -25,6 +25,10 @@ $expectedInputs = @(
         Path = 'vendor\yamaha\i88x\yamaha_i88x.pdf'
         Sha256 = '7D4F9FBCA94FA14F5DA5116900E5AC3F4A7E4CE7D44B542833891306F9AA1867'
     }
+    [pscustomobject]@{
+        Path = 'vendor\ztex\usb-fpga-2.01.pdf'
+        Sha256 = '0AAFB90685CE150D3A86647AB04DC40325C7E9A23A029D2FD4116113591C028C'
+    }
 )
 
 $expectedReferenceFiles = @(

@@ -3,8 +3,8 @@
 ## Current repository
 
 There is no build dependency yet. The repository is intentionally
-documentation-first while the leading Certus-NX FPGA candidate, USB
-controller, A203 control protocol, and carrier details pass their selection
+documentation-first while the selected Spartan-6 FPGA, optional FX2LP USB
+controller, A203 control protocol, and carrier details pass their implementation
 gates.
 
 Required now:
@@ -48,11 +48,20 @@ are missing.
 
 ## Anticipated implementation dependencies
 
-The first implementation dependency will be an FPGA toolchain after the
-bank-aware comparison in `../hardware/fpga-selection.md`. The leading candidate
-uses Lattice Radiant, with Vivado and Quartus Prime Lite retained for the
-Spartan-7 and Cyclone 10 LP trial builds. Do not make a vendor toolchain a
-required dependency until the trial compile and exact device are recorded.
+The first implementation dependency is Xilinx ISE 14.7 for
+`XC6SLX16-2FTG256C`. ISE is a legacy toolchain; record the exact installer,
+patches, licence mode, operating-system/VM image, environment setup, and hashes
+before treating a build as reproducible. Do not vendor the installer or Xilinx
+SDK content into this repository.
+
+The optional compatibility-prototype controller baseline is EZ-USB FX2LP
+`CY7C68013A-100AXC`. Infineon now marks it discontinued, so this is a
+compatibility/buy-ahead choice rather than a long-life production choice. Its
+firmware toolchain and redistributable device headers remain to be selected.
+The smaller 56-pin FX2LP is not pin-compatible with the full legacy FPGA
+interface because it exposes too few GPIOs. The active successor
+`CYUSB2316-BF104AXI` (FX2G3) has a 16-bit Slave FIFO and current SDK but requires
+a different 104-LGA footprint and firmware port.
 
 Other likely categories, not current commitments, are:
 

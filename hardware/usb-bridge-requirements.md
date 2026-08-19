@@ -57,15 +57,36 @@ The USB controller section must be independently powered/reset and connect to
 the core FPGA through explicit output enables. It must not connect directly as
 a second driver of Yamaha or A203 clocks/data.
 
-## Controller selection still open
+## Controller baseline
 
-The core audio-adapter FPGA is selected separately in `fpga-selection.md`.
-Compare at least these USB-controller approaches:
+The compatibility prototype may use the 100-pin EZ-USB FX2LP
+`CY7C68013A-100AXC` (`C9926`) for the closest electrical and behavioral match
+to the legacy ZTEX/AudioXtreamer interface. The ZTEX schematic confirms the
+16-bit PB/PD FIFO bus, PC0..7 control bus, 24 MHz crystal, I2C boot EEPROM, and
+separate PA/CTL/RDY/PE controls. The proposed FPGA assignment moves this
+interface to Spartan-6 bank 1 instead of reproducing ZTEX's configuration-bank
+coupling.
 
-- FX2LP or a compatible FIFO controller for the closest electrical/behavioral
-  match to the incomplete legacy contract;
+Infineon now marks this exact FX2LP ordering code discontinued. JLCPCB's
+remaining stock makes it practical for a small prototype/buy-ahead run, not a
+responsible sole production source. The active-preferred successor
+`CYUSB2316-BF104AXI` (FX2G3) provides a 16-bit bidirectional Slave FIFO and
+maintained examples in a different 104-LGA package. It was not present in the
+JLC/LCSC assembly library at the review date, although authorised-distributor
+stock existed. Using it would require JLC global sourcing/consignment, a new
+footprint, and firmware that recreates the AudioXtreamer host contract.
+
+Keep the 39-signal FPGA allocation independent of the controller footprint and
+place series-resistor/test access so a future controller adapter can reach the
+FIFO and control nets. Do not attempt overlapping FX2LP/FX2G3 footprints.
+
+The following remain alternatives rather than first-board assumptions:
+
 - a modern native USB High-Speed device MCU that can emulate the FIFO/register
   contract and has a maintainable firmware/debug flow;
+- FX2G3 as the preferred current-generation EZ-USB implementation when its JLC
+  sourcing and firmware costs are accepted;
+- the 56-pin FX2LP only if the FIFO and LSI buses are deliberately multiplexed;
 - a replaceable controller mezzanine if lifecycle or protocol recovery makes a
   fixed on-board choice too risky.
 
@@ -74,3 +95,5 @@ appropriately licensed USB device core and verification plan are identified.
 
 Selection depends on the recovered legacy USB descriptor/control contract,
 development-tool longevity, firmware licensing, power, and component sourcing.
+The hardware part choice does not claim that the missing FX2 firmware or stable
+streaming behavior has been recovered.

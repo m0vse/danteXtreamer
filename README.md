@@ -27,10 +27,11 @@ mechanically, or functionally compatible.
 
 This repository currently contains the reviewed design baseline, an isolated
 source layout, and a hardware-first validation plan for replacing MLN2 in both
-target products. A pre-schematic carrier architecture and FPGA shortlist now
-exist; the leading FPGA candidate is a Lattice Certus-NX LFD2NX-25 in caBGA256,
-but it remains conditional on bank-aware pin planning, a trial implementation,
-power budgeting, and sourcing. The repository deliberately contains no A203 or
+target products. The selected FPGA is a Spartan-6 `XC6SLX16-2FTG256C`, with a
+complete provisional bank assignment for Yamaha, A203, and an optional full
+EZ-USB FX2LP interface. Schematic release remains conditional on a combined
+trial implementation, power/thermal budgeting, physical measurements, and
+A203 vendor information. The repository deliberately contains no A203 or
 Yamaha-host control implementation yet because the supplied A203 manual does
 not define its configuration protocol.
 
@@ -71,7 +72,9 @@ carrier redesign to add it.
 - `hardware/hardware-baseline.md` - proposed board blocks, Yamaha/A203 audio
   adaptation, clocks, power, Ethernet, USB, safe states, and schematic split.
 - `hardware/fpga-selection.md` - I/O/resource requirements, current FPGA
-  shortlist, leading candidate, and selection gates.
+  decision, capacity evidence, JLCPCB sourcing snapshot, and selection gates.
+- `hardware/interfaces/` - complete Yamaha and A203 connector dispositions plus
+  the provisional Spartan-6 FTG256 bank/ball assignment.
 - `hardware/usb-bridge-requirements.md` - board-level requirements for including
   USB compatibility before its firmware is implemented.
 - `src/control/` - future A203 control-plane code after protocol confirmation.
@@ -88,7 +91,8 @@ All local third-party material is consolidated under ignored `vendor/`:
 - `vendor/audiocom/a203/` - A203 manual, original example archives, and
   reference-only extracted firmware/software skeletons;
 - `vendor/yamaha/01x/Yamaha-01X-Service-Manual.pdf` - local 01X service manual;
-- `vendor/yamaha/i88x/yamaha_i88x.pdf` - local i88X service manual.
+- `vendor/yamaha/i88x/yamaha_i88x.pdf` - local i88X service manual;
+- `vendor/ztex/usb-fpga-2.01.pdf` - local ZTEX FX2/Spartan-6 schematic reference.
 
 Do not force-add these files or their extracted contents until the copyright
 owners supply redistribution terms that cover the intended use. Temporary
@@ -108,9 +112,8 @@ inspection output belongs under ignored `tmp/`.
    but add firmware only behind the same serial-audio/control abstractions; do
    not couple core A203 integration to legacy FX2/Spartan-6 code.
 
-See `docs/dependencies.md` before adding a build system. No compiler or SDK is
-currently required because the FPGA family is still a conditional selection
-and no RTL trial project has been added yet.
+See `docs/dependencies.md` before adding a build system. ISE 14.7 is the selected
+FPGA toolchain, but no RTL trial project has been added yet.
 
 To confirm that the ignored local inputs match the reviewed versions:
 

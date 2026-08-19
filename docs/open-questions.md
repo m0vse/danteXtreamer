@@ -102,10 +102,12 @@ implementation is committed.
 
 ## AudioXtreamer USB bridge
 
-1. **Blocking for schematic freeze:** Choose an independently powered USB 2.0
-   High-Speed controller that can expose a 16-bit synchronous FIFO plus the
-   legacy register/control behavior to the shared FPGA. Compare FX2LP for
-   behavioral similarity against a maintainable modern HS-USB MCU.
+1. **Resolved for the compatibility prototype only:** Provision independently powered
+   `CY7C68013A-100AXC` FX2LP hardware with the full 16-bit FIFO and eight-bit
+   legacy register/control buses. Revisit a smaller or modern controller only
+   as an explicit protocol-multiplexing redesign. **Blocking for production:**
+   choose buy-ahead FX2LP versus an FX2G3 controller option after JLC sourcing,
+   footprint, firmware, and mechanical review.
 2. **Blocking for schematic freeze:** Which A203 lanes/clocks must be routed to
    the bridge, and what electrical isolation guarantees an unpowered,
    unprogrammed, or unpopulated bridge cannot load them?

@@ -12,6 +12,11 @@ adaptation and clock-domain handling. The FPGA does not implement Dante,
 AES67, Ethernet packet processing, or the normal Windows audio path; those
 network functions terminate in the A203.
 
+The selected device is `XC6SLX16-2FTG256C`. Its proposed 122-signal assignment
+uses bank 3 for Yamaha, bank 0 for A203 audio/SPI, bank 1 for the optional FX2LP,
+and bank 2 for remaining A203 control/debug. See `interfaces/` for the complete
+connector and bank matrices.
+
 ## Evidence behind the baseline
 
 The Yamaha 01X and i88X service manuals show the same MLN2 circuit family and a
@@ -192,11 +197,14 @@ least as capable as the legacy FX2 arrangement:
 - USB-C configured as a USB 2.0 device-only port, with ESD protection and no
   carrier back-power path.
 
-A footprint/module choice may use FX2LP for behavioral similarity or a modern
-High-Speed USB MCU with adapter logic. Direct ULPI-to-FPGA USB is not the
-baseline because it adds a USB device core and substantially increases
-firmware, verification, and licensing risk. The USB section must not sit in the
-native Yamaha-to-A203 path.
+The compatibility-prototype footprint baseline is the 100-pin EZ-USB FX2LP
+`CY7C68013A-100AXC`, which has enough GPIOs for both legacy buses but is now
+manufacturer-discontinued. The active FX2G3 successor has the required 16-bit
+FIFO in a non-pin-compatible 104-LGA package and was not in JLC's library at
+review time. A production controller therefore remains a sourcing/firmware
+gate. Direct ULPI-to-FPGA USB is not the baseline because it adds a USB device
+core and substantially increases firmware, verification, and licensing risk.
+The USB section must not sit in the native Yamaha-to-A203 path.
 
 ## Power, reset, and safe states
 

@@ -26,6 +26,18 @@ The SerialPortDemo archive includes COBS source without a clear origin/licence
 notice. Both archives remain excluded until Audiocom confirms redistribution
 rights and A203 applicability.
 
+## ZTEX hardware reference
+
+| Local ignored item | Origin | SHA-256 | Disposition |
+| --- | --- | --- | --- |
+| `vendor/ztex/usb-fpga-2.01.pdf` | [ZTEX USB-FPGA Module 2.01 circuit diagram](https://www.ztex.de/downloads/usb-fpga-2.01.pdf) | `0AAFB90685CE150D3A86647AB04DC40325C7E9A23A029D2FD4116113591C028C` | Seven-page schematic PDF supplied by the project owner as a link. Reviewed for the 100-pin FX2 interface, EEPROM/crystal/reset, Spartan-6 configuration coupling, and power structure. Kept ignored; redistribution terms were not assumed. |
+
+AMD's official [Spartan-6 package-device pinout ZIP](https://www.amd.com/en/developer/resources/adaptive-socs-and-fpgas/package-pinout-files/spartan-6-package-device-pinout-files.html)
+was used to verify every proposed FTG256 ball and bank. The reviewed
+`6slx16ftg256pkg.txt` had SHA-256
+`E3F0BF6D2C609D5FE566888DFA49416A61D128DEDE8D1F84F2FE9AFA8261C3B4`.
+The vendor package file was not copied into the repository.
+
 ## Related AudioXtreamer repository
 
 - Local origin: `C:/Users/phil.taylor/source/repos/audioxtreamer`

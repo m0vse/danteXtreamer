@@ -1,0 +1,125 @@
+pin,signal,direction_at_a203,owner,fpga_ball,bank,disposition,confidence
+1,3.3V,input,power,,,connect to measured A203 3.3V rail,documented
+2,3.3V,input,power,,,connect to measured A203 3.3V rail,documented
+3,2.5V,output,module,,,no load; test pad only after vendor limit supplied,documented voltage only
+4,GPIO0,bidirectional,debug_header,,,series footprint to header or NC,direction unconfirmed
+5,GPIO5,bidirectional,debug_header,,,series footprint to header or NC,direction unconfirmed
+6,GPIO1,bidirectional,debug_header,,,series footprint to header or NC,direction unconfirmed
+7,VREF_1.25V,output,module,,,no load; guarded test pad only,documented voltage only
+8,GPIO2,bidirectional,debug_header,,,series footprint to header or NC,direction unconfirmed
+9,GPIO9,bidirectional,debug_header,,,series footprint to header or NC,direction unconfirmed
+10,GPIO3,bidirectional,debug_header,,,series footprint to header or NC,direction unconfirmed
+11,GPIO10,bidirectional,debug_header,,,series footprint to header or NC,direction unconfirmed
+12,SPI_MISO_B,output,fpga,C11,0,route through series resistor,documented SPI slave role
+13,COMS_RS_232_TX_B,output,fpga,T9,2,route as optional control UART; confirm CMOS levels,naming inference
+14,SPI_MOSI_B,input,fpga,A11,0,route through series resistor,documented SPI slave role
+15,COMS_RS_232_RX_B,input,fpga,M9,2,route as optional control UART; confirm CMOS levels,naming inference
+16,SPI_CLK_B,input,fpga,F9,0,route through series resistor,documented SPI slave role
+17,COMS_RS_232_OE_B,input,fpga,N8,2,route as optional control UART; verify polarity,direction unconfirmed
+18,nSPI_SEL_B,input,fpga,D9,0,route through series resistor,documented SPI slave role
+19,TXD0,output,ethernet_phy,,,route only to vendor-approved PHY,documented name; timing unconfirmed
+20,nSPI_ADDR0,verify,fpga,B12,0,route through selection resistor; confirm function,direction and role ambiguous
+21,TXD1,output,ethernet_phy,,,route only to vendor-approved PHY,documented name; timing unconfirmed
+22,nSPI_ADDR1,verify,fpga,A12,0,route through selection resistor; confirm interrupt/select behavior,direction and role ambiguous
+23,TXD2,output,ethernet_phy,,,route only to vendor-approved PHY,documented name; timing unconfirmed
+24,SPI_Flash_CLK,output,module_flash,,,module-local flash function; do not connect FPGA,naming inference
+25,TXD3,output,ethernet_phy,,,route only to vendor-approved PHY,documented name; timing unconfirmed
+26,SPI_Flash_MISO,input,module_flash,,,module-local flash function; do not connect FPGA,naming inference
+27,GND,power,,,connect ground,documented
+28,SPI_Flash_MOSI,output,module_flash,,,module-local flash function; do not connect FPGA,naming inference
+29,TX_ERR,output,ethernet_phy,,,route only to vendor-approved PHY,documented name; timing unconfirmed
+30,GND,power,,,connect ground,documented
+31,TX_CTL,output,ethernet_phy,,,route only to vendor-approved PHY,documented name; timing unconfirmed
+32,SPI_HOLD,verify,module_flash,,,follow vendor reference; otherwise NC,function ambiguous
+33,GND,power,,,connect ground,documented
+34,Flash_W_n,verify,module_flash,,,follow vendor reference; otherwise NC,function ambiguous
+35,TX_CLK,output,ethernet_phy,,,route only to vendor-approved PHY,documented name; mode unconfirmed
+36,GND,power,,,connect ground,documented
+37,GND,power,,,connect ground,documented
+38,MDIO,bidirectional,ethernet_phy,,,route only to vendor-approved PHY,documented name; voltage unconfirmed
+39,GTX_CLK,output,ethernet_phy,,,route only to vendor-approved PHY,documented name; delay unconfirmed
+40,MDC,output,ethernet_phy,,,route only to vendor-approved PHY,documented name; voltage unconfirmed
+41,GND,power,,,connect ground,documented
+42,MDINT,input,ethernet_phy,,,route only to vendor-approved PHY,documented name; polarity unconfirmed
+43,RXD0,input,ethernet_phy,,,route only to vendor-approved PHY,documented name; timing unconfirmed
+44,GND,power,,,connect ground,documented
+45,RXD1,input,ethernet_phy,,,route only to vendor-approved PHY,documented name; timing unconfirmed
+46,AUXB1,verify,debug_header,,,test pad or NC pending vendor definition,undocumented behavior
+47,RXD2,input,ethernet_phy,,,route only to vendor-approved PHY,documented name; timing unconfirmed
+48,GPIO8,bidirectional,debug_header,,,series footprint to header or NC,direction unconfirmed
+49,RXD3,input,ethernet_phy,,,route only to vendor-approved PHY,documented name; timing unconfirmed
+50,SDA,bidirectional,fpga,P7,2,optional I2C control through selection resistors,protocol unconfirmed
+51,GND,power,,,connect ground,documented
+52,SCL,input,fpga,M7,2,optional I2C control through selection resistor,direction inferred
+53,RX_VLD,input,ethernet_phy,,,route only to vendor-approved PHY,documented name; mode unconfirmed
+54,AUXB0,verify,debug_header,,,test pad or NC pending vendor definition,undocumented behavior
+55,RX_ERR,input,ethernet_phy,,,route only to vendor-approved PHY,documented name; timing unconfirmed
+56,SPI_MISO_A,input,debug_header,,,optional header through selection resistor,documented SPI master role
+57,GND,power,,,connect ground,documented
+58,GND,power,,,connect ground,documented
+59,RX_CLK,input,ethernet_phy,,,route only to vendor-approved PHY,documented name; timing unconfirmed
+60,PHY_nRST,output,ethernet_phy,,,route only to vendor-approved PHY,documented name; timing unconfirmed
+61,GND,power,,,connect ground,documented
+62,GND,power,,,connect ground,documented
+63,GND,power,,,connect ground,documented
+64,SPI_CLK_A,output,debug_header,,,optional header through selection resistor,documented SPI master role
+65,MUTE,verify,fpga,A13,0,route as status with safe pull footprint,meaning documented; direction and polarity unconfirmed
+66,GND,power,,,connect ground,documented
+67,GPIO6,bidirectional,fpga,E11,0,route through series resistor for vendor-defined control,direction unconfirmed
+68,EXTERNL_CLK,input,fpga,B5,0,route from clock mux; confirm this is SCLK_IN,documented pin; identity ambiguous
+69,GPIO7,bidirectional,fpga,B14,0,route through series resistor for vendor-defined control,direction unconfirmed
+70,SCLK,output,fpga,C9,0,clock-capable input with source-series option,documented audio clock output
+71,GND,power,,,connect ground,documented
+72,GND,power,,,connect ground,documented
+73,COMS_RS_232_TX_A,output,fpga,L10,2,route as optional control UART; confirm CMOS levels,naming inference
+74,SPI_MOSI_A,output,debug_header,,,optional header through selection resistor,documented SPI master role
+75,COMS_RS_232_RX_A,input,fpga,M10,2,route as optional control UART; confirm CMOS levels,naming inference
+76,MCLK,output,fpga,A9,0,clock-capable input with source-series option,documented audio clock output
+77,GND,power,,,connect ground,documented
+78,GND,power,,,connect ground,documented
+79,COMS_RS_232_OE_A,input,fpga,R9,2,route as optional control UART; verify polarity,direction unconfirmed
+80,LRCLK_IN,input,fpga,A5,0,route from exclusive clock-owner mux,documented audio clock input
+81,GND,power,,,connect ground,documented
+82,LRCLK,output,fpga,B10,0,clock-capable input with source-series option,documented audio clock output
+83,GND,power,,,connect ground,documented
+84,GND,power,,,connect ground,documented
+85,SDOUT0,output,fpga,D5,0,route through series resistor,documented audio output
+86,FPGA_DONE,input,fpga,F10,0,drive only after FPGA configuration and safe state,naming inference
+87,SDOUT1,output,fpga,C5,0,route through series resistor,documented audio output
+88,PA10_RXD1,verify,debug_header,,,module debug signal; header or NC,undocumented behavior
+89,SDOUT2,output,fpga,B6,0,route through series resistor,documented audio output
+90,PA9_TXD1,verify,debug_header,,,module debug signal; header or NC,undocumented behavior
+91,SDOUT3,output,fpga,A6,0,route through series resistor,documented audio output
+92,nRESET_IN,input,reset_supervisor,,,open-drain reset network also observable by FPGA,documented name; timing unconfirmed
+93,GND,power,,,connect ground,documented
+94,GND,power,,,connect ground,documented
+95,SDOUT4,output,fpga,F7,0,route through series resistor,documented audio output
+96,PA13_TMS,verify,module_debug,,,module debug header only,debug naming inference
+97,SDOUT5,output,fpga,E6,0,route through series resistor,documented audio output
+98,PA14_TCK,verify,module_debug,,,module debug header only,debug naming inference
+99,SDOUT6,output,fpga,C7,0,route through series resistor,documented audio output
+100,nSPI_Flash_CS,output,module_flash,,,module-local flash function; do not connect FPGA,naming inference
+101,SDOUT7,output,fpga,A7,0,route through series resistor,documented audio output
+102,GND,power,,,connect ground,documented
+103,GND,power,,,connect ground,documented
+104,TDO,output,module_debug,,,module JTAG header only,documented name
+105,SDIN0,input,fpga,D6,0,route through series resistor,documented audio input
+106,TCK,input,module_debug,,,module JTAG header only,documented name
+107,SDIN1,input,fpga,C6,0,route through series resistor,documented audio input
+108,TDI,input,module_debug,,,module JTAG header only,documented name
+109,SDIN2,input,fpga,E7,0,route through series resistor,documented audio input
+110,TMS,input,module_debug,,,module JTAG header only,documented name
+111,SDIN3,input,fpga,E8,0,route through series resistor,documented audio input
+112,GND,power,,,connect ground,documented
+113,GND,power,,,connect ground,documented
+114,3.3V,input,power,,,connect to measured A203 3.3V rail,documented
+115,SDIN4,input,fpga,E10,0,route through series resistor,documented audio input
+116,3.3V,input,power,,,connect to measured A203 3.3V rail,documented
+117,SDIN5,input,fpga,C10,0,route through series resistor,documented audio input
+118,3.3V,input,power,,,connect to measured A203 3.3V rail,documented
+119,SDIN6,input,fpga,D8,0,route through series resistor,documented audio input
+120,3.3V,input,power,,,connect to measured A203 3.3V rail,documented
+121,SDIN7,input,fpga,C8,0,route through series resistor,documented audio input
+122,3.3V,input,power,,,connect to measured A203 3.3V rail,documented
+123,1V1,output,module,,,no load; test pad only after vendor limit supplied,documented voltage only
+124,1V1,output,module,,,no load; test pad only after vendor limit supplied,documented voltage only

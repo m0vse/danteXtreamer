@@ -1,0 +1,101 @@
+contact,generic_signal,card_direction,design_net,fpga_ball,bank,disposition,evidence_status
+1,GND,power,GND,,,connect ground,service schematic
+2,WCKI,input,YAMAHA_WCKI,F2,3,route through clock conditioning,service schematic and legacy reference
+3,BCKI,input,YAMAHA_BCKI,F1,3,route through clock conditioning,service schematic and legacy reference
+4,MCKI,input,YAMAHA_MCKI,J6,3,provision and measure before use,service schematic only
+5,DETECT1,verify,DETECT1_STRAP,,,legacy reference grounds this contact; make strap configurable,service schematic and legacy reference
+6,AIN1,input,YAMAHA_AIN1,M4,3,route with series resistor,service schematic and legacy reference
+7,AIN2,input,YAMAHA_AIN2,M3,3,route with series resistor,service schematic and legacy reference
+8,AIN3,input,YAMAHA_AIN3,M5,3,route with series resistor,service schematic and legacy reference
+9,AIN4,input,YAMAHA_AIN4,N4,3,route with series resistor,service schematic and legacy reference
+10,AIN5,input,YAMAHA_AIN5,R2,3,route with series resistor,service schematic and legacy reference
+11,AIN6,input,YAMAHA_AIN6,R1,3,route with series resistor,service schematic and legacy reference
+12,AIN7,input,YAMAHA_AIN7,P2,3,route with series resistor,service schematic and legacy reference
+13,AIN8,input,YAMAHA_AIN8,P1,3,route with series resistor,service schematic and legacy reference
+14,GND,power,GND,,,connect ground,service schematic
+15,AIN9,input,YAMAHA_AIN9,N3,3,route with series resistor,service schematic and legacy reference
+16,AIN10,input,YAMAHA_AIN10,N1,3,route with series resistor,service schematic and legacy reference
+17,AIN11,input,YAMAHA_AIN11,M2,3,route with series resistor,service schematic and legacy reference
+18,AIN12,input,YAMAHA_AIN12,M1,3,route with series resistor,service schematic and legacy reference
+19,AIN13_OR_MIN5,input,YAMAHA_MIDI_IN5,C3,3,use MIDI function; do not assume audio lane 13,service schematic and legacy reference
+20,AIN14_OR_MIN6,verify,NC,,,leave unconnected pending host evidence,service schematic generic function
+21,AIN15_OR_MIN7,verify,NC,,,leave unconnected pending host evidence,service schematic generic function
+22,AIN16_OR_MIN8,verify,NC,,,leave unconnected pending host evidence,service schematic generic function
+23,GND,power,GND,,,connect ground,service schematic
+24,MIN1,input,YAMAHA_MIDI_IN1,E2,3,route with series resistor,service schematic and legacy reference
+25,MIN2,input,YAMAHA_MIDI_IN2,E1,3,route with series resistor,service schematic and legacy reference
+26,MIN3,input,YAMAHA_MIDI_IN3,K5,3,route with series resistor,service schematic and legacy reference
+27,MIN4,input,YAMAHA_MIDI_IN4,K6,3,route with series resistor,service schematic and legacy reference
+28,+3.3V,power,HOST_3V3_SENSE,,,do not load; optional high impedance test point,service schematic only
+29,+3.3V,power,HOST_3V3_SENSE,,,do not load; optional high impedance test point,service schematic only
+30,+5V,power,HOST_5V,,,protected power input and current measurement,service schematic and legacy reference
+31,GND,power,GND,,,connect ground,service schematic
+32,MA0,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+33,MA1,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+34,MA2,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+35,MA3,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+36,MA4,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+37,MA5,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+38,MA6,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+39,MA7,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+40,GND,power,GND,,,connect ground,service schematic
+41,MA8,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+42,MA9,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+43,MA10,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+44,MA11,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+45,MA12,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+46,MA13,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+47,INT,verify,NC,,,not used by replacement; test pad only if measurement requires,service schematic generic bus
+48,WR,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+49,RD,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+50,GND,power,GND,,,connect ground,service schematic
+51,GND,power,GND,,,connect ground,service schematic
+52,WCKO,output,YAMAHA_WCKO,H5,3,provision behind safe output enable,service schematic only
+53,BCKO,output,YAMAHA_BCKO,H4,3,provision behind safe output enable,service schematic only
+54,MCKO,output,YAMAHA_MCKO,H3,3,provision behind safe output enable,service schematic only
+55,DETECT2,verify,DETECT2_STRAP,,,legacy reference grounds this contact; make strap configurable,service schematic and legacy reference
+56,AOUT1,output,YAMAHA_AOUT1,L3,3,route behind safe output enable,service schematic and legacy reference
+57,AOUT2,output,YAMAHA_AOUT2,L1,3,route behind safe output enable,service schematic and legacy reference
+58,AOUT3,output,YAMAHA_AOUT3,K2,3,route behind safe output enable,service schematic and legacy reference
+59,AOUT4,output,YAMAHA_AOUT4,K1,3,route behind safe output enable,service schematic and legacy reference
+60,AOUT5,output,YAMAHA_AOUT5,J3,3,route behind safe output enable,service schematic and legacy reference
+61,AOUT6,output,YAMAHA_AOUT6,J1,3,route behind safe output enable,service schematic and legacy reference
+62,AOUT7,output,YAMAHA_AOUT7,H2,3,route behind safe output enable,service schematic and legacy reference
+63,AOUT8,output,YAMAHA_AOUT8,H1,3,route behind safe output enable,service schematic and legacy reference
+64,GND,power,GND,,,connect ground,service schematic
+65,AOUT9,output,YAMAHA_AOUT9,G3,3,route behind safe output enable,service schematic and legacy reference
+66,AOUT10,output,YAMAHA_AOUT10,G1,3,route behind safe output enable,service schematic and legacy reference
+67,AOUT11,output,YAMAHA_AOUT11,L4,3,route behind safe output enable,service schematic and legacy reference
+68,AOUT12,output,YAMAHA_AOUT12,L5,3,route behind safe output enable,service schematic and legacy reference
+69,AOUT13_OR_MOUT5,output,YAMAHA_MIDI_OUT5,B1,3,use MIDI function; do not assume audio lane 13,service schematic and legacy reference
+70,AOUT14_OR_MOUT6,verify,NC,,,leave unconnected pending host evidence,service schematic generic function
+71,AOUT15_OR_MOUT7,verify,NC,,,leave unconnected pending host evidence,service schematic generic function
+72,AOUT16_OR_MOUT8,verify,NC,,,leave unconnected pending host evidence,service schematic generic function
+73,GND,power,GND,,,connect ground,service schematic
+74,MOUT1,output,YAMAHA_MIDI_OUT1,C2,3,route behind safe output enable,service schematic and legacy reference
+75,MOUT2,output,YAMAHA_MIDI_OUT2,D3,3,route behind safe output enable,service schematic and legacy reference
+76,MOUT3,output,YAMAHA_MIDI_OUT3,D1,3,route behind safe output enable,service schematic and legacy reference
+77,MOUT4,output,YAMAHA_MIDI_OUT4,C1,3,route behind safe output enable,service schematic and legacy reference
+78,+3.3V,power,HOST_3V3_SENSE,,,do not load; optional high impedance test point,service schematic only
+79,+3.3V,power,HOST_3V3_SENSE,,,do not load; optional high impedance test point,service schematic only
+80,+5V,power,HOST_5V,,,protected power input and current measurement,service schematic and legacy reference
+81,GND,power,GND,,,connect ground,service schematic
+82,MD0,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+83,MD1,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+84,MD2,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+85,MD3,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+86,MD4,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+87,MD5,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+88,MD6,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+89,MD7,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+90,GND,power,GND,,,connect ground,service schematic
+91,MD8,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+92,MD9,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+93,MD10,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+94,MD11,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+95,MD12,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+96,MD13,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+97,MD14,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+98,MD15,verify,NC,,,not used by replacement; leave unconnected,service schematic generic bus
+99,NC,none,NC,,,leave unconnected,service schematic
+100,GND,power,GND,,,connect ground,service schematic
