@@ -1,0 +1,49 @@
+# Local vendor material. Redistribution rights have not been established.
+/a203/
+/vendor/
+
+# Inspection and capture scratch space.
+/tmp/
+/captures/
+
+# Build output.
+/build/
+/out/
+/dist/
+**/Debug/
+**/Release/
+**/RelWithDebInfo/
+**/MinSizeRel/
+**/x64/
+**/Win32/
+
+# IDE and user state.
+/.vs/
+/.vscode/
+/.idea/
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+
+# Generated firmware, FPGA, installer, and executable artifacts.
+*.bin
+*.bit
+*.hex
+*.elf
+*.map
+*.pdb
+*.exe
+*.dll
+*.msi
+
+# Locally supplied SDKs and generated vendor trees.
+/asiosdk*/
+/sdk/
+/generated/
+
+# OS/editor noise.
+.DS_Store
+Thumbs.db
+*.swp
+*~
