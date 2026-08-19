@@ -4,6 +4,8 @@
 # Inspection and capture scratch space.
 /tmp/
 /captures/
+/hardware/easyeda/.cache/
+__pycache__/
 
 # Build output.
 /build/

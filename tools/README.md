@@ -14,3 +14,9 @@ software skeleton files are present.
 `verify-pin-matrices.ps1` checks connector completeness, FPGA bank capacity,
 duplicate balls/signals, and cross-file ball references. It does not replace
 AMD package-file verification or ISE placement.
+
+`verify-easyeda-schematic.ps1` parses the generated EasyEDA multi-sheet JSON,
+checks its document/page types, verifies required LCSC bindings and all 122
+non-debug interface-net endpoints, and confirms the Yamaha/A203 contact counts
+and mandatory design-hold warnings. It does not replace EasyEDA Pro import,
+ERC, footprint review, or electrical design review.

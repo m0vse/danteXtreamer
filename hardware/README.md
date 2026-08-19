@@ -21,3 +21,9 @@ questions first.
 
 The carrier is expected to include USB High-Speed bridge provisions even if
 firmware is deferred. See `usb-bridge-requirements.md`.
+
+The first generated schematic package is under `easyeda/`. It is an EasyEDA
+Pro-importable preliminary source with embedded JLC/LCSC library bindings, a
+parts manifest, complete connector pin capture, and explicit design holds. The
+Yamaha and A203 sockets are intentionally DNI/customer-supplied until their
+production footprints and mechanics are verified.

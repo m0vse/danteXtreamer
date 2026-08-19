@@ -90,3 +90,20 @@ The Markdown files, ignore rules, and directory layout in this repository were
 created for `danteXtreamer`. No project-wide outbound licence has been selected.
 Before accepting external code, add its origin, exact version/commit, licence,
 local modifications, and required notices to this file.
+
+The generated EasyEDA schematic under `hardware/easyeda/` is new project
+connectivity and annotation, assembled from the repository-owned interface
+matrices. Its generator downloads public EasyEDA/LCSC component records by the
+explicit supplier identifiers listed in `hardware/easyeda/jlc-parts.csv` and
+embeds each selected symbol and package binding in the importable document.
+Those library records remain attributable to their named manufacturers and
+EasyEDA/LCSC; they are not represented as original project artwork. The
+generator uses the documented [EasyEDA Standard document format](https://docs.easyeda.com/en/DocumentFormat/EasyEDA-Format-Standard/),
+and the generated document is intended for EasyEDA Pro's documented
+[EasyEDA Standard import path](https://prodocs.easyeda.com/en/import-export/import-easyeda/).
+
+The Yamaha and A203 connector graphics are repository-created logical symbols
+derived from the reviewed pin matrices. They deliberately have no production
+PCB footprint. No proprietary Yamaha footprint, A203 reference design, ZTEX
+schematic artwork, or AudioXtreamer Eagle object was copied into the EasyEDA
+source.
