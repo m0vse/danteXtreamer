@@ -25,5 +25,7 @@ firmware is deferred. See `usb-bridge-requirements.md`.
 The first generated schematic package is under `easyeda/`. It is an EasyEDA
 Pro-importable preliminary source with embedded JLC/LCSC library bindings, a
 parts manifest, complete connector pin capture, and explicit design holds. The
-Yamaha and A203 sockets are intentionally DNI/customer-supplied until their
-production footprints and mechanics are verified.
+The Yamaha socket remains DNI/customer-supplied. The A203 schematic now uses
+the EasyEDA/LCSC `MINI_PCI-124P` device `C9900003781`; keep it DNI or
+customer-supplied until the connector height and latch mechanics are verified
+against a physical module.

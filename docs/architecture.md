@@ -12,9 +12,9 @@ product is therefore a hardware integration around four boundaries:
    network components required by the vendor's reference design.
 3. **Audio adaptation:** synchronous I2S/TDM data, word/bit/master clocks, lane
    mapping, and mute/lock behavior between the Yamaha MLN2 boundary and A203.
-4. **Control side:** Yamaha host compatibility plus A203 reset and a
-   vendor-confirmed UART, SPI, I2C, or other
-   configuration path.
+4. **Control side:** a separate 10/100 Ethernet management port connected to an
+   STM32, plus STM32-to-FPGA control and a vendor-confirmed STM32-to-A203 UART,
+   SPI, I2C, or other configuration path.
 
 There is no Windows streaming path in the core design. A desktop utility may
 eventually configure or diagnose the product, but it would not carry the A203's
@@ -73,10 +73,19 @@ confirmation. See `../hardware/hardware-baseline.md`.
 
 ### Control adapter
 
-All module control will sit behind a narrow interface such as discovery,
-read-only status, configuration transaction, and reset. No register addresses
-or packet formats from the BF01 examples are promoted into this interface until
-Audiocom confirms that they apply to the A203 and may be used.
+The control plane is physically independent of the A203 media network. A
+10/100 Ethernet-capable STM32 and its own RMII PHY terminate the second RJ45;
+the STM32 exposes a bounded management service and controls FPGA registers over
+a separate local serial bus. It also has a direct UART route to one A203
+`COMS_RS_232_*` interface, with a selectable SPI alternative retained only if
+bus ownership and safe inactive states can be guaranteed.
+
+Audiocom's BF01 example demonstrates a practical 115200-baud, 8-N-1 UART link
+using DMA/idle framing and `reg_br_`/`reg_bw_` transactions for identity,
+network, mixer, and route configuration. That is evidence for the hardware
+topology, not proof of A203 register compatibility. No BF01 register address or
+packet field is enabled in production control firmware until Audiocom confirms
+that it applies to A203 and may be used.
 
 ### Diagnostics and validation
 

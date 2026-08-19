@@ -41,8 +41,10 @@ implementation is committed.
 
 1. **Blocking:** What is the A203 maximum and typical 3.3 V current, supply
    tolerance, inrush profile, sequencing requirement, and required decoupling?
-2. **Blocking:** Is there an Audiocom carrier/reference schematic and validated
-   PCB stack-up/connector recommendation for the 124-pin interface?
+2. **Blocking:** The schematic uses EasyEDA/LCSC `MINI_PCI-124P`
+   (`C9900003781`). Measure its height, key position, board seating datum and
+   latch geometry against the physical A203, and obtain any Audiocom validated
+   footprint, carrier reference schematic, and PCB stack-up recommendation.
 3. **Blocking:** What are the required assertion/deassertion timing, pull state,
    and voltage limits for `nRESET_IN`?
 4. What loads, if any, may be placed on the 2.5 V, 1.25 V reference, and 1.1 V
@@ -65,6 +67,9 @@ implementation is committed.
    is only one MAC interface exposed?
 6. What firmware update method is authorised for production, and what recovery
    path exists after an interrupted update?
+7. Select and validate the independent STM32 control-port PHY, magnetics/RJ45,
+   RMII reference-clock source, strap resistors, ESD protection, and isolation
+   boundary. This port is not connected to the A203 media MAC.
 
 ## Serial audio and clocking
 
@@ -89,14 +94,18 @@ implementation is committed.
 
 ## Control protocol
 
-1. **Blocking:** Which physical interface controls the A203 in the intended
-   integration: UART A/B, SPI A/B, I2C, network control, or a combination?
+1. **Partially resolved, still blocking:** the BF01 example proves a related
+   Audiocom module can be controlled by an STM32 over 115200-baud 8-N-1 UART
+   using DMA and idle-line framing. Confirm whether A203 supports that contract,
+   which `COMS_RS_232_*` A/B port to use, its voltage levels, and the required
+   output-enable behavior. Preserve SPI only as a safely selectable alternative.
 2. **Blocking:** Obtain the A203-specific register/protocol/API document and its
    redistribution rules.
 3. Do either BF01 example project or the UDP demo apply to A203? If so, which
    version and which commands/registers are stable public interfaces?
-4. Confirm UART voltage levels, framing, baud rate, output-enable behavior, flow
-   control, message framing, checksums, timeouts, and reset recovery.
+4. Confirm that A203 uses the observed 115200-baud framing, then document its
+   voltage levels, output-enable behavior, checksums, timeouts, and reset
+   recovery. The BF01 source alone is not sufficient confirmation.
 5. What read-only identity/status operation is safe for first bring-up?
 6. Which configuration is persistent, and how is factory recovery performed?
 

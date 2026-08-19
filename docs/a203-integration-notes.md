@@ -54,6 +54,21 @@ The manual's timing table mentions 44.1 kHz-family clock modes and rates above
 96 kHz, while its headline product specification lists 48/96 kHz. These timing
 rows are not treated as supported product modes without vendor confirmation.
 
+## Connector library selection
+
+The native schematic uses the existing EasyEDA/LCSC library device
+`MINI_PCI-124P`, supplier part `C9900003781`, rather than a locally generated
+symbol. The library data contains electrical contacts 1–124, a matching
+footprint, and two mechanical latch pads numbered 0. The schematic connects all
+124 electrical contacts by pin number to `hardware/interfaces/a203-pin-matrix.csv`;
+the mechanical pin 0 is intentionally not connected.
+
+This selection establishes a workable CAD device, not mechanical sign-off.
+Connector height, key and latch geometry, module seating datum, and courtyard
+must be checked against the physical A203 before fabrication. The unmodified
+EasyEDA search response and exact library UUIDs are recorded under
+`hardware/easyeda/library-import/`.
+
 ## Observations from supplied examples
 
 These are review notes, not an A203 API specification.
@@ -61,14 +76,33 @@ These are review notes, not an A203 API specification.
 ### `BF01_InterConn.rar`
 
 The archive contains two STM32F103/Keil projects: a BF01 application and a
-bootloader. The application uses USART1 at 115200 baud for a related module and
-USART2 at 115200 for debug. It performs discovery, register reads/writes,
-route/mixer setup, and firmware-update handling.
+bootloader. In the application, USART1 on PA9/PA10 is explicitly identified as
+the BF01 communication link and USART2 on PA2/PA3 is the debug console. Both
+are configured for 115200 baud, 8 data bits, one stop bit, no parity, and no
+hardware flow control. The module link uses DMA transmit/receive and UART idle
+line detection to delimit received traffic.
 
-Observed messages include ASCII prefixes resembling `reg_br_` and `reg_bw_`,
-followed by binary address/length/data fields. The example also uses undocumented
-register addresses and constructs unicast/multicast route records. None of
-those fields are implemented here because:
+The wire format is visible in `User/app.c`:
+
+- register reads start with the seven ASCII bytes `reg_br_`, followed by a
+  big-endian 16-bit register address and a big-endian 16-bit word count;
+- register writes start with `reg_bw_`, followed by a big-endian 16-bit
+  register address and the payload bytes;
+- the startup code reads from register zero, extracts register `0x000f`, TX/RX
+  channel counts, IPv4 address, and MAC address, then writes configuration;
+- mixer data is written at `0x3000`, TX route records at `0x0400 + 0x20*n`, RX
+  route records at `0x0800 + 0x20*n`, and a network/update record at `0x0220`;
+- the route builders contain UDP, multicast MAC/IP, port 5004, channel-count,
+  and route-in-use fields, demonstrating that the host MCU can configure media
+  routing without itself carrying the media stream.
+
+The application does not initialise the STM32 Ethernet peripheral or implement
+an IP stack. Ethernet HAL source files present in the project are generic
+bundled framework code, not evidence of an Ethernet control implementation.
+
+These observations make a UART-connected management MCU credible, but they do
+not establish an A203 API. None of the undocumented register fields are treated
+as stable A203 behavior yet because:
 
 - the archive is named for BF01, not A203;
 - no accompanying protocol/register specification is supplied;
@@ -97,8 +131,17 @@ to A203. The code and executable are therefore not copied.
   project requirement, not a capability stated in the A203 manual.
 - Core media flows between the Yamaha MLN2-side audio interface and A203
   XDante/AES67; no ASIO or Windows media transport is assumed.
-- Control-protocol code waits for an A203-specific specification or written
-  vendor confirmation that a reviewed example applies.
+- The board will provide a separate physical control Ethernet port connected to
+  an Ethernet-capable STM32 and its own 10/100 PHY. This port is deliberately
+  independent of the A203 Dante/AES67 network port and does not carry audio.
+- The STM32 will have a direct UART path to an A203 `COMS_RS_232_*` interface
+  and a separate register/control path to the FPGA. The schematic will also
+  preserve a selectable SPI alternative where practical; bus ownership must be
+  unambiguous so the STM32 and FPGA cannot drive the A203 simultaneously.
+- Initial STM32 firmware may use the BF01 example's 115200-baud DMA/idle-line
+  transport as an integration hypothesis. Register operations remain disabled
+  until Audiocom supplies an A203-specific specification or confirms in writing
+  that the BF01 protocol and relevant register map apply.
 - Initial bring-up uses 48 kHz/24-bit and a vendor-confirmed lane mode.
 - The pre-schematic Yamaha-to-A203 audio/control adapter uses
   `XC6SLX16-2FTG256C`. Its ordering code and provisional banks are selected;
